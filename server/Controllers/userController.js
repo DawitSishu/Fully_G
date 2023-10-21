@@ -1,5 +1,5 @@
 import asyncHandler from "express-async-handler";
-import { pool } from "../database/index.js";
+import { pool } from "../Database/index.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
@@ -14,7 +14,7 @@ export const signUp = asyncHandler(async (req, res) => {
     throw err;
   }
 
-  if (!/^[0-9]{10}$/.test(phone)) {
+  if (!/^0\d{9}$/.test(phone)) {
     const err = new Error("Invalid Phone Number");
     err.statusCode = 400;
     throw err;
@@ -38,6 +38,6 @@ export const signUp = asyncHandler(async (req, res) => {
 
   res.status(201).json({
     message: "User Registration Success",
-    data: final[0],
+    data: [],
   });
 });

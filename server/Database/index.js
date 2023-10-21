@@ -1,4 +1,6 @@
 import mysql from "mysql2";
+import dotenv from "dotenv";
+dotenv.config();
 
 try {
   var pool = mysql
@@ -12,7 +14,6 @@ try {
       keepAliveInitialDelay: 0,
     })
     .promise();
-  console.log("Connected to Database");
 } catch (error) {
   console.log(error);
 }
