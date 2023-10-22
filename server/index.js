@@ -3,6 +3,8 @@ import dotenv from "dotenv";
 import cors from "cors";
 import errorHandler from "./MiddleWares/ErrorHandler.js";
 import userRouter from "./Routes/userRoutes.js";
+import receiverRouter from "./Routes/receiverRoute.js";
+import creatorRouter from "./Routes/uploaderRoute.js";
 
 const app = express();
 dotenv.config();
@@ -11,6 +13,8 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/users", userRouter);
+app.use("/api/creator", creatorRouter);
+app.use("/api/receiver", receiverRouter);
 
 app.use(errorHandler);
 
