@@ -118,7 +118,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           ),
                           child: const Center(
                             child: Text(
-                              'Log In',
+                              'Get Started',
                               style: TextStyle(
                                 fontWeight: FontWeight.w700,
                                 fontSize: 18,

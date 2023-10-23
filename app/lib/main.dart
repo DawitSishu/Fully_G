@@ -1,4 +1,6 @@
+import 'package:app/Pages/LoginPage.dart';
 import 'package:app/Pages/OnboardingPage.dart';
+import 'package:app/Pages/SIgnUpPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -12,10 +14,12 @@ void main() {
     theme: ThemeData(
       fontFamily: 'Poppins',
     ),
-    initialRoute: '/',
+    initialRoute: 'login',
     debugShowCheckedModeBanner: false,
     routes: {
       '/': (context) => OnboardingScreen(),
+      'login': (context) => LoginPage(),
+      'signup': (context) => SignUpPage()
     },
   ));
 }
