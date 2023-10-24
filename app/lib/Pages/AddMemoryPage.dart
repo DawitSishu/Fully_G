@@ -11,6 +11,7 @@ class AddMemory extends StatefulWidget {
 class _AddMemoryState extends State<AddMemory> {
   @override
   Widget build(BuildContext context) {
+    final cardWidth = (MediaQuery.of(context).size.width - 40) / 2 - 10;
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -118,6 +119,101 @@ class _AddMemoryState extends State<AddMemory> {
           ),
           SizedBox(height: 20),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SizedBox(
+                width: cardWidth,
+                child: OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                    side: BorderSide(
+                        width: 2,
+                        color: const Color.fromRGBO(239, 239, 239, 1)),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    backgroundColor: Colors.grey.shade100,
+                  ),
+                  onPressed: () {},
+                  child: Container(
+                    padding: const EdgeInsets.fromLTRB(10, 20, 10, 20),
+                    child: Column(
+                      children: [
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Icon(
+                          Icons.mic,
+                          size: 48, // Adjust the size as needed
+                          color: Color.fromARGB(
+                              255, 100, 58, 97), // Adjust the color as needed
+                        ),
+                        const Text(
+                          'Record Audio',
+                          textAlign: TextAlign.center,
+                          maxLines: 2,
+                          softWrap: false,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            height: 1.1,
+                            fontSize: 20,
+                            color: Colors.grey,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: cardWidth,
+                child: OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                      side: BorderSide(
+                          width: 2,
+                          color: const Color.fromRGBO(239, 239, 239, 1)),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      backgroundColor: Colors.grey.shade100),
+                  onPressed: () {},
+                  child: Container(
+                    padding: const EdgeInsets.fromLTRB(10, 20, 10, 20),
+                    child: Column(children: [
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Icon(
+                        Icons.cloud_upload,
+                        size: 48, // Adjust the size as needed
+                        color: Color.fromARGB(
+                            255, 100, 58, 97), // Adjust the color as needed
+                      ),
+                      const Text(
+                        'Upload Audio',
+                        textAlign: TextAlign.center,
+                        maxLines: 1,
+                        softWrap: false,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          height: 1,
+                          fontSize: 20,
+                          color: Colors.grey,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                    ]),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 25),
+          Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ElevatedButton(
@@ -146,14 +242,14 @@ class _AddMemoryState extends State<AddMemory> {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     constraints: const BoxConstraints(
-                      maxWidth: 200,
+                      maxWidth: 250,
                     ),
                     child: const Center(
                       child: Text(
                         'Save',
                         style: TextStyle(
                           fontWeight: FontWeight.w700,
-                          fontSize: 16,
+                          fontSize: 20,
                         ),
                       ),
                     ),
