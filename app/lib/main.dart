@@ -15,7 +15,7 @@ void main() {
     theme: ThemeData(
       fontFamily: 'Poppins',
     ),
-    initialRoute: 'uploadMemory',
+    initialRoute: 'login',
     debugShowCheckedModeBanner: false,
     routes: {
       '/': (context) => OnboardingScreen(),

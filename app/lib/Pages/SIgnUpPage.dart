@@ -1,3 +1,5 @@
+import 'package:app/Models/SignUpPageModel.dart';
+import 'package:app/util/widgets.dart';
 import 'package:flutter/material.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -6,7 +8,8 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  String? _selectedGender;
+  String _selectedGender = "";
+  final data = SignUpData();
 
   @override
   Widget build(BuildContext context) {
@@ -49,56 +52,52 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                     ),
                     SizedBox(height: 20),
-                    TextFormField(
-                      decoration: InputDecoration(
-                        hintText: 'Full Name',
-                        prefixIcon: Icon(Icons.person),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                      ),
+                    InputBox(
+                      inputLabel: "Full Name",
+                      placeHolder: "Enter your Full Name",
+                      icon: Icon(Icons.person),
+                      update: (value) {
+                        data.full_name = value;
+                      },
                     ),
                     SizedBox(height: 20),
-                    TextFormField(
-                      decoration: InputDecoration(
-                        hintText: 'Nick Name',
-                        prefixIcon: Icon(Icons.person),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                      ),
+                    InputBox(
+                      inputLabel: "Nick Name",
+                      placeHolder: "Enter your Nick Name",
+                      icon: Icon(Icons.person),
+                      update: (value) {
+                        data.nick_name = value;
+                      },
                     ),
                     SizedBox(height: 10),
-                    TextFormField(
-                      decoration: InputDecoration(
-                        hintText: 'Phone Number',
-                        prefixIcon: Icon(Icons.phone),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                      ),
+                    InputBox(
+                      inputLabel: "Phone Number",
+                      placeHolder: "Enter your Phone Number",
+                      icon: Icon(Icons.phone),
+                      update: (value) {
+                        data.phone_number = value;
+                      },
+                      isPhone: true,
                     ),
                     SizedBox(height: 10),
-                    TextFormField(
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        hintText: 'Password',
-                        prefixIcon: Icon(Icons.lock),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                      ),
+                    InputBox(
+                      inputLabel: "Password",
+                      placeHolder: "Enter your Password",
+                      icon: Icon(Icons.lock),
+                      isPassword: true,
+                      update: (value) {
+                        data.password = value;
+                      },
                     ),
                     SizedBox(height: 10),
-                    TextFormField(
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        hintText: 'Confirm Password',
-                        prefixIcon: Icon(Icons.lock),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                      ),
+                    InputBox(
+                      inputLabel: "Confirm Password",
+                      placeHolder: "Enter your Password Agsin",
+                      icon: Icon(Icons.lock),
+                      isPassword: true,
+                      update: (value) {
+                        data.confirmPassword = value;
+                      },
                     ),
                     SizedBox(height: 10),
                     Row(
@@ -111,7 +110,8 @@ class _SignUpPageState extends State<SignUpPage> {
                               groupValue: _selectedGender,
                               onChanged: (value) {
                                 setState(() {
-                                  _selectedGender = value;
+                                  _selectedGender = value!;
+                                  data.gender = _selectedGender;
                                 });
                               },
                             ),
@@ -121,7 +121,8 @@ class _SignUpPageState extends State<SignUpPage> {
                               groupValue: _selectedGender,
                               onChanged: (value) {
                                 setState(() {
-                                  _selectedGender = value;
+                                  _selectedGender = value!;
+                                  data.gender = _selectedGender;
                                 });
                               },
                             ),
@@ -138,7 +139,12 @@ class _SignUpPageState extends State<SignUpPage> {
                           borderRadius: BorderRadius.circular(25.0),
                         ),
                       ),
-                      onPressed: () async {},
+                      onPressed: () async {
+                        if (data.password != data.confirmPassword) {
+                          print("##########################################");
+                        }
+                        data.printAndGetData();
+                      },
                       child: Ink(
                         decoration: BoxDecoration(
                           gradient: const LinearGradient(
