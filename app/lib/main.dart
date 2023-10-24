@@ -1,3 +1,4 @@
+import 'package:app/Pages/AddMemoryPage.dart';
 import 'package:app/Pages/LoginPage.dart';
 import 'package:app/Pages/OnboardingPage.dart';
 import 'package:app/Pages/SIgnUpPage.dart';
@@ -14,12 +15,13 @@ void main() {
     theme: ThemeData(
       fontFamily: 'Poppins',
     ),
-    initialRoute: 'login',
+    initialRoute: 'uploadMemory',
     debugShowCheckedModeBanner: false,
     routes: {
       '/': (context) => OnboardingScreen(),
       'login': (context) => LoginPage(),
-      'signup': (context) => SignUpPage()
+      'signup': (context) => SignUpPage(),
+      'uploadMemory': (context) => AddMemory()
     },
   ));
 }
