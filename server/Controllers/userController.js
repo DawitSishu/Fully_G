@@ -7,7 +7,7 @@ import bcrypt from "bcrypt";
 //@route POST /api/users/signup
 //@access public
 export const signUp = asyncHandler(async (req, res) => {
-  const { phone, password } = req.body;
+  const { phone, password, full_name, nick_name, gender } = req.body;
   if (!phone || !password) {
     const err = new Error("All fields are required");
     err.statusCode = 400;
@@ -20,9 +20,10 @@ export const signUp = asyncHandler(async (req, res) => {
     throw err;
   }
 
-  const result = await pool.query("SELECT * FROM users WHERE username = ?", [
-    phone,
-  ]);
+  const result = await pool.query(
+    "SELECT * FROM users WHERE phone_number  = ?",
+    [phone]
+  );
   if (result[0].length > 0) {
     const err = new Error("Phone number already registered");
     err.statusCode = 400;
@@ -32,8 +33,8 @@ export const signUp = asyncHandler(async (req, res) => {
   const hashedPassword = await bcrypt.hash(password, 10);
 
   const final = await pool.query(
-    "INSERT INTO users (username, password) VALUES (?, ?)",
-    [phone, hashedPassword]
+    "INSERT INTO users (phone_number, password,full_name, nick_name, gender) VALUES (?,?,?,?,?)",
+    [phone, hashedPassword, full_name, nick_name, gender]
   );
 
   res.status(201).json({
@@ -53,9 +54,10 @@ export const logIN = asyncHandler(async (req, res) => {
     err.statusCode = 400;
     throw err;
   }
-  const result = await pool.query("SELECT * FROM users WHERE username = ?", [
-    phone,
-  ]);
+  const result = await pool.query(
+    "SELECT * FROM users WHERE phone_number = ?",
+    [phone]
+  );
 
   if (result[0].length === 0) {
     const err = new Error("Incorrect Phone or Password");
@@ -74,8 +76,8 @@ export const logIN = asyncHandler(async (req, res) => {
 
   const token = jwt.sign(
     {
-      userId: user.id,
-      phone: user.username,
+      ...user,
+      password: "",
     },
     "your-secret-key",
     { expiresIn: "1d" }

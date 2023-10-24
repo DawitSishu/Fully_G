@@ -6,8 +6,8 @@ import userRouter from "./Routes/userRoutes.js";
 import receiverRouter from "./Routes/receiverRoute.js";
 import creatorRouter from "./Routes/uploaderRoute.js";
 
-const app = express();
 dotenv.config();
+const app = express();
 app.use(cors());
 
 app.use(express.json());
