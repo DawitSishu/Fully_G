@@ -1,6 +1,8 @@
 import 'package:app/Pages/AddMemoryPage.dart';
+import 'package:app/Pages/CreatorHomePage.dart';
 import 'package:app/Pages/LoginPage.dart';
 import 'package:app/Pages/OnboardingPage.dart';
+import 'package:app/Pages/PaymentPage.dart';
 import 'package:app/Pages/SIgnUpPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -15,13 +17,15 @@ void main() {
     theme: ThemeData(
       fontFamily: 'Poppins',
     ),
-    initialRoute: 'login',
+    initialRoute: 'payment',
     debugShowCheckedModeBanner: false,
     routes: {
       '/': (context) => OnboardingScreen(),
       'login': (context) => LoginPage(),
       'signup': (context) => SignUpPage(),
-      'uploadMemory': (context) => AddMemory()
+      'uploadMemory': (context) => AddMemory(),
+      'main': (context) => CreatorMainPage(),
+      'payment': (context) => PaymentPage(),
     },
   ));
 }
