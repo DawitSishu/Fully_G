@@ -1,5 +1,5 @@
 import 'package:app/Pages/AddMemoryPage.dart';
-import 'package:app/Pages/CreatorHomePage.dart';
+import 'package:app/Pages/CreatorMainPage.dart';
 import 'package:app/Pages/LoginPage.dart';
 import 'package:app/Pages/OnboardingPage.dart';
 import 'package:app/Pages/PaymentPage.dart';
@@ -17,7 +17,7 @@ void main() {
     theme: ThemeData(
       fontFamily: 'Poppins',
     ),
-    initialRoute: 'payment',
+    initialRoute: 'main',
     debugShowCheckedModeBanner: false,
     routes: {
       '/': (context) => OnboardingScreen(),
