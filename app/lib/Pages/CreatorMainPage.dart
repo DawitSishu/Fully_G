@@ -1,5 +1,6 @@
 import 'package:app/Pages/AddMemoryPage.dart';
 import 'package:app/Pages/CreatorHomePage.dart';
+import 'package:app/Pages/CreatorProfilePage.dart';
 import 'package:flutter/material.dart';
 
 class CreatorMainPage extends StatefulWidget {
@@ -76,7 +77,7 @@ class _CreatorMainPageState extends State<CreatorMainPage>
         backgroundColor: Colors.white,
         body: TabBarView(
           controller: tabController,
-          children: [HomePage(), AddMemory(), temp()],
+          children: [HomePage(), AddMemory(), CreatorProfile()],
         ),
         bottomNavigationBar: DecoratedBox(
           decoration: const BoxDecoration(
@@ -95,26 +96,4 @@ class _CreatorMainPageState extends State<CreatorMainPage>
           ),
         ),
       );
-}
-
-class temp extends StatelessWidget {
-  const temp({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 100,
-      height: 100,
-      child: Center(
-        child: Text(
-          'Hello, profile!',
-          style: TextStyle(
-            fontSize: 20,
-          ),
-        ),
-      ),
-    );
-  }
 }
