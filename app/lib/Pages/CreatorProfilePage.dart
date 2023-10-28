@@ -48,6 +48,7 @@ class _CreatorProfileState extends State<CreatorProfile> {
                         Padding(
                           padding: const EdgeInsets.all(16.0),
                           child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Padding(
                                 padding: const EdgeInsets.all(10.0),
@@ -62,7 +63,7 @@ class _CreatorProfileState extends State<CreatorProfile> {
                                   ),
                                 ),
                               ),
-                              SizedBox(width: 20),
+                              // SizedBox(width: 20),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -81,27 +82,80 @@ class _CreatorProfileState extends State<CreatorProfile> {
                                   Text("Creating Memories Together"),
                                 ],
                               ),
-                              Icon(Icons.edit, size: 20),
+                              IconButton(
+                                icon: Icon(Icons.edit,
+                                    size: 35,
+                                    color: Color.fromARGB(255, 116, 59, 107)),
+                                onPressed: () {},
+                              ),
                             ],
                           ),
                         ),
-                        // Padding(
-                        //   padding: const EdgeInsets.all(16.0),
-                        //   child: Row(
-                        //     children: [
-                        //       Icon(Icons.person, size: 20),
-                        //       SizedBox(width: 5),
-                        //       Text("Nickname: JohnDoe"),
-                        //       SizedBox(width: 20),
-                        //       Icon(Icons.phone, size: 20),
-                        //       SizedBox(width: 5),
-                        //       Text("Phone: +1234567890"),
-                        //       Spacer(),
-                        //       Icon(Icons.edit, size: 20),
-                        //     ],
-                        //   ),
-                        // ),
-                        // Memory Cards with horizontal scroll
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            children: <Widget>[
+                              Row(
+                                children: <Widget>[
+                                  Icon(
+                                    Icons.person,
+                                    color: Color.fromARGB(255, 116, 59, 107),
+                                    size: 32,
+                                  ),
+                                  SizedBox(width: 10),
+                                  Text(
+                                    "nickname",
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 10),
+                              Row(
+                                children: <Widget>[
+                                  Icon(
+                                    Icons.phone,
+                                    color: Color.fromARGB(255, 116, 59, 107),
+                                    size: 32,
+                                  ),
+                                  SizedBox(width: 10),
+                                  Text(
+                                    "+251 9********",
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 10),
+                              Row(
+                                children: <Widget>[
+                                  Icon(
+                                    Icons.favorite,
+                                    color: Color.fromARGB(255, 116, 59, 107),
+                                    size: 32,
+                                  ),
+                                  SizedBox(width: 10),
+                                  Text(
+                                    "1234688",
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
                         Text(
                           "My Memories",
                           style: TextStyle(
@@ -109,6 +163,9 @@ class _CreatorProfileState extends State<CreatorProfile> {
                             fontWeight: FontWeight.bold,
                             color: Color.fromARGB(255, 116, 59, 107),
                           ),
+                        ),
+                        SizedBox(
+                          height: 10,
                         ),
                         MemoryCardGrid(),
                       ],
@@ -120,6 +177,23 @@ class _CreatorProfileState extends State<CreatorProfile> {
           ),
         ],
       ),
+      floatingActionButton: InkWell(
+        onTap: () async {},
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            IconButton(
+              color: const Color.fromARGB(255, 116, 59, 107),
+              padding: const EdgeInsets.all(0),
+              iconSize: 30,
+              alignment: Alignment.centerRight,
+              onPressed: () {},
+              icon: const Icon(Icons.logout),
+            ),
+            const Text('Log out'),
+          ],
+        ),
+      ),
     );
   }
 }
@@ -128,7 +202,7 @@ class MemoryCardGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 150,
+      height: 170,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: 3, // Change this to the number of memory cards you want
@@ -158,22 +232,32 @@ class MemoryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.all(0), // Remove margin
+      margin: EdgeInsets.all(0),
       elevation: 5,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12.0),
+      ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Image.asset(
-            imageUrl,
-            height: 100, // Decreased image height
-            width: double.infinity,
-            fit: BoxFit.cover,
+          ClipRRect(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(12.0),
+              topRight: Radius.circular(12.0),
+            ),
+            child: Image.asset(
+              imageUrl,
+              height: 100,
+              width: double.infinity,
+              fit: BoxFit.cover,
+            ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
               title,
               style: TextStyle(
-                fontSize: 16, // Decreased font size
+                fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
             ),
