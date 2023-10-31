@@ -84,16 +84,17 @@ class MemoryCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(12.0),
-              topRight: Radius.circular(12.0),
-            ),
-            child: Image.asset(
-              imageUrl,
-              height: 100,
-              width: double.infinity,
-              fit: BoxFit.cover,
+          AspectRatio(
+            aspectRatio: 16 / 9, // Adjust the aspect ratio as needed
+            child: ClipRRect(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(12.0),
+                topRight: Radius.circular(12.0),
+              ),
+              child: Image.asset(
+                imageUrl,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           Padding(
@@ -111,3 +112,7 @@ class MemoryCard extends StatelessWidget {
     );
   }
 }
+
+
+// dave add the image of te headt and some design from the thing from the design
+// and then add the cards and also make him change the text (poem) add templates
