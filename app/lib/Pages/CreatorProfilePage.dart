@@ -18,7 +18,7 @@ class _CreatorProfileState extends State<CreatorProfile> {
             child: Stack(
               children: [
                 Container(
-                  height: 350,
+                  height: 400,
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage('assets/images/profile.png'),
@@ -31,7 +31,7 @@ class _CreatorProfileState extends State<CreatorProfile> {
                   ),
                 ),
                 Positioned(
-                  top: 200,
+                  top: 300,
                   left: 0,
                   right: 0,
                   bottom: 0,
@@ -115,6 +115,36 @@ class _CreatorProfileState extends State<CreatorProfile> {
                                   ),
                                 ],
                               ),
+                              Row(
+                                children: <Widget>[
+                                  Icon(
+                                    Icons.favorite,
+                                    color: Colors.red,
+                                    size: 32,
+                                  ),
+                                  SizedBox(width: 10),
+                                  RichText(
+                                    text: TextSpan(
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors
+                                            .black, // You can customize the text color
+                                      ),
+                                      children: <TextSpan>[
+                                        TextSpan(text: "My Love: "),
+                                        TextSpan(
+                                          text: "babe",
+                                          style: TextStyle(
+                                            color: Color.fromARGB(255, 116, 59,
+                                                107), // Customize the text color
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
                               SizedBox(height: 10),
                               Row(
                                 children: <Widget>[
@@ -137,19 +167,56 @@ class _CreatorProfileState extends State<CreatorProfile> {
                                 children: <Widget>[
                                   Icon(
                                     Icons.favorite,
-                                    color: Color.fromARGB(255, 116, 59, 107),
+                                    color: Colors.red,
                                     size: 32,
                                   ),
                                   SizedBox(width: 10),
-                                  Text(
-                                    "1234688",
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.grey,
+                                  RichText(
+                                    text: TextSpan(
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors
+                                            .black, // You can customize the text color
+                                      ),
+                                      children: <TextSpan>[
+                                        TextSpan(text: "Love ID: "),
+                                        TextSpan(
+                                          text: "12348",
+                                          style: TextStyle(
+                                              color: Color.fromARGB(
+                                                  255, 116, 59, 107)),
+                                        ),
+                                      ],
                                     ),
-                                  ),
+                                  )
                                 ],
                               ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Row(
+                            children: <Widget>[
+                              Icon(
+                                Icons
+                                    .show_chart, // Replace with an appropriate icon
+                                color: Color.fromARGB(255, 116, 59, 107),
+                                size: 32,
+                              ),
+                              SizedBox(width: 10),
+                              Text(
+                                "Love percentage",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              // Create a circular indicator for stats (e.g., out of 100)
+                              SizedBox(width: 10),
+                              StatsCircularIndicator(
+                                  percent: 75), // Example percentage
                             ],
                           ),
                         ),
@@ -179,6 +246,39 @@ class _CreatorProfileState extends State<CreatorProfile> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class StatsCircularIndicator extends StatelessWidget {
+  final double percent;
+
+  StatsCircularIndicator({required this.percent});
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        SizedBox(
+          width: 40,
+          height: 40,
+          child: CircularProgressIndicator(
+            value: percent / 100,
+            strokeWidth: 4,
+            backgroundColor: Colors.grey[300],
+            valueColor: AlwaysStoppedAnimation<Color>(
+              Color.fromARGB(255, 116, 59, 107),
+            ),
+          ),
+        ),
+        Text(
+          '$percent%',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ],
     );
   }
 }
