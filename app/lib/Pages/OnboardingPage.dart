@@ -91,10 +91,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       ),
                       onPressed: () async {
                         // Navigate to the login screen
-                        // await Navigator.popAndPushNamed(
-                        //   context,
-                        //   'login',
-                        // );
+                        await Navigator.popAndPushNamed(
+                          context,
+                          'login',
+                        );
                       },
                       child: Ink(
                         decoration: BoxDecoration(
