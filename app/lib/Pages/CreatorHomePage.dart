@@ -26,43 +26,142 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ),
-        body: Column(
-          children: [
-            SizedBox(
-              height: 10,
-            ),
-            Text(
-              "My Memories",
-              style: TextStyle(
-                fontSize: 26, // Decreased font size
-                fontWeight: FontWeight.bold,
-                color: Color.fromARGB(255, 116, 59, 107),
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Container(
-              height: 170,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount:
-                    3, // Change this to the number of memory cards you want
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      width: 150,
-                      child: MemoryCard(
-                        title: "Memory $index",
-                        imageUrl: "assets/images/t${index + 1}.png",
-                      ),
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12.0),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey,
+                      offset: Offset(0, 2),
+                      blurRadius: 6,
                     ),
-                  );
-                },
+                  ],
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Icon(
+                              Icons.favorite,
+                              color: Colors.red,
+                              size: 90, // Make the heart bigger
+                            ),
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Top Text',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(
+                                'Bottom Text',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Column(
+                              children: [
+                                Text('Column 1 Text 1'),
+                                Text('Column 1 Text 2'),
+                              ],
+                            ),
+                          ),
+                          VerticalDivider(
+                            color: Colors
+                                .black, // Set the color of the vertical divider
+                          ),
+                          Expanded(
+                            child: Column(
+                              children: [
+                                Text('Column 2 Text 1'),
+                                Text('Column 2 Text 2'),
+                              ],
+                            ),
+                          ),
+                          VerticalDivider(
+                            color: Colors
+                                .black, // Set the color of the vertical divider
+                          ),
+                          Expanded(
+                            child: Column(
+                              children: [
+                                Text('Column 3 Text 1'),
+                                Text('Column 3 Text 2'),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
               ),
-            ),
-          ],
+
+              SizedBox(height: 20),
+
+              // Three Columns of Two Texts with Vertical Dividers
+
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                "My Memories",
+                style: TextStyle(
+                  fontSize: 26, // Decreased font size
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromARGB(255, 116, 59, 107),
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Container(
+                height: 170,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount:
+                      3, // Change this to the number of memory cards you want
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        width: 150,
+                        child: MemoryCard(
+                          title: "Memory $index",
+                          imageUrl: "assets/images/t${index + 1}.png",
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
         ));
   }
 }
