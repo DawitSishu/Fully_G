@@ -2,12 +2,16 @@ import asyncHandler from "express-async-handler";
 import { pool } from "../Database/index.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
+import { v4 as uuidv4 } from "uuid";
 
 //@desc creates a user
 //@route POST /api/users/signup
 //@access public
 export const signUp = asyncHandler(async (req, res) => {
   const { phone, password, full_name, nick_name, gender } = req.body;
+
+  const love_id = uuidv4();
+
   if (!phone || !password) {
     const err = new Error("All fields are required");
     err.statusCode = 400;
@@ -33,8 +37,8 @@ export const signUp = asyncHandler(async (req, res) => {
   const hashedPassword = await bcrypt.hash(password, 10);
 
   const final = await pool.query(
-    "INSERT INTO users (phone_number, password,full_name, nick_name, gender) VALUES (?,?,?,?,?)",
-    [phone, hashedPassword, full_name, nick_name, gender]
+    "INSERT INTO users (love_id,phone_number, password,full_name, nick_name, gender) VALUES (?,?,?,?,?)",
+    [love_id, phone, hashedPassword, full_name, nick_name, gender]
   );
 
   res.status(201).json({
