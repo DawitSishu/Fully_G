@@ -2,7 +2,7 @@ import { pool } from "../Database/index.js";
 import asyncHandler from "express-async-handler";
 import path from "path";
 
-//@descreceive uploaded Audios
+//@desc receive uploaded Audios
 //@route GET /api/receiver/audio/:id
 //@access private
 export const getAudio = asyncHandler(async (req, res) => {
