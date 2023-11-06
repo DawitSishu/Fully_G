@@ -27,3 +27,18 @@ export const getAudio = asyncHandler(async (req, res) => {
   const absolutePath = path.resolve(filePath);
   res.sendFile(absolutePath);
 });
+
+//@desc receive uploaded images
+//@route GET /api/receiver/images/:id
+//@access private
+export const getImages = asyncHandler(async (req, res) => {
+  const fileId = req.params.id;
+
+  if (!fileId) {
+    const err = new Error("Please Include the audio Id");
+    err.statusCode = 400;
+    throw err;
+  }
+
+  //perform the image getting functionality
+});
