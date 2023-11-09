@@ -35,10 +35,20 @@ export const getImages = asyncHandler(async (req, res) => {
   const fileId = req.params.id;
 
   if (!fileId) {
-    const err = new Error("Please Include the audio Id");
+    const err = new Error("Please Include the image Id");
     err.statusCode = 400;
     throw err;
   }
+  const selectQuery = "SELECT file_path FROM imageFiles WHERE id = ?";
+  const values = [fileId];
+  const results = await pool.query(selectQuery, values);
 
-  //perform the image getting functionality
+  if (results[0][0].length <= 0) {
+    const err = new Error("There is no such Image.");
+    err.statusCode = 404;
+    throw err;
+  }
+  const filePath = results[0][0].file_path;
+  const absolutePath = path.resolve(filePath);
+  res.sendFile(absolutePath);
 });
