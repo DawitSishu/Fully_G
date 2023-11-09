@@ -1,12 +1,13 @@
 import express from "express";
 import multer from "multer";
-import { uploadAudio } from "../Controllers/uploaderController.js";
+import { uploadFile } from "../Controllers/uploaderController.js";
 
 const creatorRouter = express.Router();
 
 const upload = multer({ dest: "uploads/" });
 
-//upload an audio
-creatorRouter.post("/audio", upload.single("audio"), uploadAudio);
+//upload an audio or image
+creatorRouter.post("/upload", upload.single("file"), uploadFile);
+
 
 export default creatorRouter;

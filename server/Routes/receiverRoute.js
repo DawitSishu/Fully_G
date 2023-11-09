@@ -6,4 +6,6 @@ const receiverRouter = express.Router();
 //receive audio
 receiverRouter.get("/audio/:id", getAudio);
 
+//receive photo
+
 export default receiverRouter;
