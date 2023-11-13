@@ -1,4 +1,4 @@
-import 'package:app/util/widgets.dart';
+import 'package:Yene/util/widgets.dart';
 import 'package:flutter/material.dart';
 
 class AddMemory extends StatefulWidget {

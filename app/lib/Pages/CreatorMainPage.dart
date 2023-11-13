@@ -1,6 +1,6 @@
-import 'package:app/Pages/AddMemoryPage.dart';
-import 'package:app/Pages/CreatorHomePage.dart';
-import 'package:app/Pages/CreatorProfilePage.dart';
+import 'package:Yene/Pages/AddMemoryPage.dart';
+import 'package:Yene/Pages/CreatorHomePage.dart';
+import 'package:Yene/Pages/CreatorProfilePage.dart';
 import 'package:flutter/material.dart';
 
 class CreatorMainPage extends StatefulWidget {

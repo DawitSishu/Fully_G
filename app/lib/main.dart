@@ -1,14 +1,20 @@
-import 'package:app/Pages/AddMemoryPage.dart';
-import 'package:app/Pages/CreatorMainPage.dart';
-import 'package:app/Pages/LoginPage.dart';
-import 'package:app/Pages/OnboardingPage.dart';
-import 'package:app/Pages/PaymentPage.dart';
-import 'package:app/Pages/SIgnUpPage.dart';
+import 'package:Yene/Pages/AddMemoryPage.dart';
+import 'package:Yene/Pages/CreatorMainPage.dart';
+import 'package:Yene/Pages/LoginPage.dart';
+import 'package:Yene/Pages/OnboardingPage.dart';
+import 'package:Yene/Pages/PaymentPage.dart';
+import 'package:Yene/Pages/SIgnUpPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 // #e12cc7
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     systemNavigationBarColor: Colors.white,
   ));

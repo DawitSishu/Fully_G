@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "764102569793",
+    "project_id": "yene-a3e5f",
+    "storage_bucket": "yene-a3e5f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:764102569793:android:d8d4207b257415e4c0fbc0",
+        "android_client_info": {
+          "package_name": "com.example.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAs3wArB9wHIbvt6fxF3BTXdAjvwYoCdsE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

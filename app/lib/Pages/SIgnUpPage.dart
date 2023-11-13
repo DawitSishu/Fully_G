@@ -1,5 +1,5 @@
-import 'package:app/Models/SignUpPageModel.dart';
-import 'package:app/util/widgets.dart';
+import 'package:Yene/Models/SignUpPageModel.dart';
+import 'package:Yene/util/widgets.dart';
 import 'package:flutter/material.dart';
 
 class SignUpPage extends StatefulWidget {
