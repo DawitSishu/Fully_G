@@ -1,3 +1,4 @@
+import 'package:Yene/util/widgets.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -53,11 +54,7 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           Padding(
                             padding: const EdgeInsets.all(16.0),
-                            child: Icon(
-                              Icons.favorite,
-                              color: Colors.red,
-                              size: 90, // Make the heart bigger
-                            ),
+                            child: BeatingHeart(),
                           ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
