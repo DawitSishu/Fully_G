@@ -56,9 +56,10 @@ class _HomePageState extends State<HomePage> {
                   borderRadius: BorderRadius.circular(12.0),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.grey,
-                      offset: Offset(0, 2),
-                      blurRadius: 6,
+                      color: Colors.grey.withOpacity(0.3),
+                      offset: Offset(0, 4), // Adjusted offset for bottom shadow
+                      blurRadius: 8,
+                      spreadRadius: 0,
                     ),
                   ],
                 ),
@@ -143,6 +144,56 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
+// class MemoryCard extends StatelessWidget {
+//   final String title;
+//   final String imageUrl;
+
+//   MemoryCard({required this.title, required this.imageUrl});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Card(
+//       margin: EdgeInsets.all(0),
+//       elevation: 5,
+//       shape: RoundedRectangleBorder(
+//         borderRadius: BorderRadius.circular(12.0),
+//       ),
+//       child: Column(
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: [
+//           AspectRatio(
+//             aspectRatio: 16 / 9,
+//             child: ClipRRect(
+//               borderRadius: BorderRadius.only(
+//                 topLeft: Radius.circular(12.0),
+//                 topRight: Radius.circular(12.0),
+//               ),
+//               child: Image.asset(
+//                 imageUrl,
+//                 fit: BoxFit.cover,
+//               ),
+//             ),
+//           ),
+//           Padding(
+//             padding: const EdgeInsets.all(8.0),
+//             child: Text(
+//               title,
+//               style: TextStyle(
+//                 fontSize: 18,
+//                 fontWeight: FontWeight.bold,
+//               ),
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
+// MemoryCard(
+//                       imageUrl: 'assets/images/3.jpg',
+//                       date: 'ከበፊት እስካሁን',
+//                       memoryText: 'መልዕክቴ ላንቺ',
+//                     ),
 
 // dave add the image of te headt and some design from the thing from the design
 // and then add the cards and also make him change the text (poem) add templates
