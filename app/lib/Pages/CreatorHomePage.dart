@@ -53,7 +53,7 @@ class _HomePageState extends State<HomePage> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.all(16.0),
+                            padding: const EdgeInsets.all(10.0),
                             child: BeatingHeart(),
                           ),
                           Column(
@@ -77,52 +77,48 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ],
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            child: Column(
-                              children: [
-                                Text('Column 1 Text 1'),
-                                Text('Column 1 Text 2'),
-                              ],
-                            ),
-                          ),
-                          VerticalDivider(
-                            color: Colors
-                                .black, // Set the color of the vertical divider
-                          ),
-                          Expanded(
-                            child: Column(
-                              children: [
-                                Text('Column 2 Text 1'),
-                                Text('Column 2 Text 2'),
-                              ],
-                            ),
-                          ),
-                          VerticalDivider(
-                            color: Colors
-                                .black, // Set the color of the vertical divider
-                          ),
-                          Expanded(
-                            child: Column(
-                              children: [
-                                Text('Column 3 Text 1'),
-                                Text('Column 3 Text 2'),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //   children: [
+                      //     Expanded(
+                      //       child: Column(
+                      //         children: [
+                      //           Text('Column 1 Text 1'),
+                      //           Text('Column 1 Text 2'),
+                      //         ],
+                      //       ),
+                      //     ),
+                      //     VerticalDivider(
+                      //       color: Colors
+                      //           .black, // Set the color of the vertical divider
+                      //     ),
+                      //     Expanded(
+                      //       child: Column(
+                      //         children: [
+                      //           Text('Column 2 Text 1'),
+                      //           Text('Column 2 Text 2'),
+                      //         ],
+                      //       ),
+                      //     ),
+                      //     VerticalDivider(
+                      //       color: Colors
+                      //           .black, // Set the color of the vertical divider
+                      //     ),
+                      //     Expanded(
+                      //       child: Column(
+                      //         children: [
+                      //           Text('Column 3 Text 1'),
+                      //           Text('Column 3 Text 2'),
+                      //         ],
+                      //       ),
+                      //     ),
+                      //   ],
+                      // ),
                     ],
                   ),
                 ),
               ),
-
               SizedBox(height: 20),
-
-              // Three Columns of Two Texts with Vertical Dividers
-
               SizedBox(
                 height: 10,
               ),
@@ -141,8 +137,7 @@ class _HomePageState extends State<HomePage> {
                 height: 170,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount:
-                      3, // Change this to the number of memory cards you want
+                  itemCount: 3,
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -181,7 +176,7 @@ class MemoryCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           AspectRatio(
-            aspectRatio: 16 / 9, // Adjust the aspect ratio as needed
+            aspectRatio: 16 / 9,
             child: ClipRRect(
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(12.0),
@@ -208,7 +203,11 @@ class MemoryCard extends StatelessWidget {
     );
   }
 }
-
+// MemoryCard(
+//                       imageUrl: 'assets/images/3.jpg',
+//                       date: 'ከበፊት እስካሁን',
+//                       memoryText: 'መልዕክቴ ላንቺ',
+//                     ),
 
 // dave add the image of te headt and some design from the thing from the design
 // and then add the cards and also make him change the text (poem) add templates
