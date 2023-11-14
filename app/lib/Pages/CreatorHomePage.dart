@@ -8,6 +8,25 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
+final memories = [
+  {
+    "title": "some title",
+    "img": "assets/images/t1.png",
+    "description":
+        "Whether you need help with academic research, creative writing, general knowledge"
+  },
+  {
+    "title": "other title",
+    "img": "assets/images/t2.png",
+    "description": "Whether you need help with"
+  },
+  {
+    "title": "another title",
+    "img": "assets/images/t3.png",
+    "description": "some description"
+  },
+];
+
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
@@ -29,8 +48,7 @@ class _HomePageState extends State<HomePage> {
         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: ListView(
             children: [
               Container(
                 decoration: BoxDecoration(
@@ -77,43 +95,6 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ],
                       ),
-                      // Row(
-                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      //   children: [
-                      //     Expanded(
-                      //       child: Column(
-                      //         children: [
-                      //           Text('Column 1 Text 1'),
-                      //           Text('Column 1 Text 2'),
-                      //         ],
-                      //       ),
-                      //     ),
-                      //     VerticalDivider(
-                      //       color: Colors
-                      //           .black, // Set the color of the vertical divider
-                      //     ),
-                      //     Expanded(
-                      //       child: Column(
-                      //         children: [
-                      //           Text('Column 2 Text 1'),
-                      //           Text('Column 2 Text 2'),
-                      //         ],
-                      //       ),
-                      //     ),
-                      //     VerticalDivider(
-                      //       color: Colors
-                      //           .black, // Set the color of the vertical divider
-                      //     ),
-                      //     Expanded(
-                      //       child: Column(
-                      //         children: [
-                      //           Text('Column 3 Text 1'),
-                      //           Text('Column 3 Text 2'),
-                      //         ],
-                      //       ),
-                      //     ),
-                      //   ],
-                      // ),
                     ],
                   ),
                 ),
@@ -133,24 +114,28 @@ class _HomePageState extends State<HomePage> {
               SizedBox(
                 height: 10,
               ),
-              Container(
-                height: 170,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 3,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        width: 150,
-                        child: MemoryCard(
-                          title: "Memory $index",
-                          imageUrl: "assets/images/t${index + 1}.png",
-                        ),
-                      ),
-                    );
-                  },
+              GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 1, // Set the number of cards in each row
+                  mainAxisSpacing:
+                      8.0, // Set the vertical spacing between cards
+                  crossAxisSpacing:
+                      8.0, // Set the horizontal spacing between cards
                 ),
+                physics: NeverScrollableScrollPhysics(), // Disable scrolling
+                shrinkWrap: true,
+                itemCount: memories.length,
+                itemBuilder: (context, index) {
+                  final item = memories[index];
+                  return GestureDetector(
+                    onTap: () {},
+                    child: MemoryCard(
+                      memoryText: item['title'],
+                      imageUrl: item["img"],
+                      desc: item['description'],
+                    ),
+                  );
+                },
               ),
             ],
           ),
@@ -158,56 +143,6 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class MemoryCard extends StatelessWidget {
-  final String title;
-  final String imageUrl;
-
-  MemoryCard({required this.title, required this.imageUrl});
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      margin: EdgeInsets.all(0),
-      elevation: 5,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12.0),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          AspectRatio(
-            aspectRatio: 16 / 9,
-            child: ClipRRect(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(12.0),
-                topRight: Radius.circular(12.0),
-              ),
-              child: Image.asset(
-                imageUrl,
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              title,
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-// MemoryCard(
-//                       imageUrl: 'assets/images/3.jpg',
-//                       date: 'ከበፊት እስካሁን',
-//                       memoryText: 'መልዕክቴ ላንቺ',
-//                     ),
 
 // dave add the image of te headt and some design from the thing from the design
 // and then add the cards and also make him change the text (poem) add templates

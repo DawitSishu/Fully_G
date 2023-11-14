@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:jiffy/jiffy.dart';
 
 class WidgetSpace extends StatelessWidget {
   const WidgetSpace({Key? key, this.child, this.space = 0.0}) : super(key: key);
@@ -166,14 +167,14 @@ class _BeatingHeartState extends State<BeatingHeart>
 }
 
 class MemoryCard extends StatelessWidget {
-  final String imageUrl;
-  final String date;
-  final String memoryText;
+  final String? imageUrl;
+  final String? memoryText;
+  final String? desc;
 
   MemoryCard({
     required this.imageUrl,
-    required this.date,
     required this.memoryText,
+    required this.desc,
   });
 
   @override
@@ -186,35 +187,39 @@ class MemoryCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            width: double.infinity,
-            height: 150.0, // Adjust the height as needed
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.vertical(top: Radius.circular(15.0)),
-              image: DecorationImage(
-                image: AssetImage(imageUrl),
-                fit: BoxFit.cover,
+          Flexible(
+            flex: 1,
+            child: Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.vertical(top: Radius.circular(15.0)),
+                image: DecorationImage(
+                  image: AssetImage(imageUrl!),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(12.0),
+            padding: const EdgeInsets.all(20.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Date: $date',
-                  style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 14.0,
-                  ),
-                ),
-                SizedBox(height: 8.0),
-                Text(
-                  memoryText,
+                  memoryText ?? '',
                   style: TextStyle(
                     fontSize: 18.0,
                     fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(
+                  height: 8, // Adjust this spacing as needed
+                ),
+                Text(
+                  desc ?? '',
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    color: Colors.grey,
                   ),
                 ),
               ],
@@ -224,73 +229,4 @@ class MemoryCard extends StatelessWidget {
       ),
     );
   }
-}
-
-class DatePicker extends StatefulWidget {
-  const DatePicker({
-    super.key,
-    this.placeHolder,
-    this.update,
-    this.inputLabel,
-  });
-  final placeHolder;
-  final inputLabel;
-  final update;
-  @override
-  State<StatefulWidget> createState() => _DatePicker();
-}
-
-class _DatePicker extends State<DatePicker> {
-  TextEditingController dateInput = TextEditingController();
-
-  @override
-  void initState() {
-    dateInput.text = ''; //set the initial value of text field
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) => TextField(
-        controller: dateInput,
-        //editing controller of this TextField
-        decoration: InputDecoration(
-          enabledBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: Color.fromARGB(50, 0, 0, 0)),
-          ),
-          border: const OutlineInputBorder(
-            borderSide: BorderSide(width: 16, color: Colors.white),
-          ),
-          labelText: widget.inputLabel,
-          labelStyle: const TextStyle(
-            fontWeight: FontWeight.w300,
-            fontSize: 14,
-          ),
-          suffixIcon: const Icon(Icons.calendar_today),
-        ),
-        readOnly: true,
-        //set it true, so that user will not able to edit text
-        onTap: () async {
-          final pickedDate = await showDatePicker(
-            context: context,
-            initialDate: DateTime.now(),
-            firstDate: DateTime(1950),
-            //DateTime.now() - not to allow to choose before today.
-            lastDate: DateTime(2120),
-          );
-
-          if (pickedDate != null) {
-            print(
-              pickedDate,
-            ); //pickedDate output format => 2021-03-10 00:00:00.000
-            final formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
-            //formatted date output using intl package =>  2021-03-16
-            setState(() {
-              dateInput.text =
-                  formattedDate; //set output date to TextField value.
-              //update the value;
-              widget.update(formattedDate);
-            });
-          } else {}
-        },
-      );
 }
