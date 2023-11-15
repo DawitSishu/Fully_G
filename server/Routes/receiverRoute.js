@@ -1,5 +1,5 @@
 import express from "express";
-import { getAudio } from "../Controllers/receiverController.js";
+import { getAudio, getImages } from "../Controllers/receiverController.js";
 
 const receiverRouter = express.Router();
 
@@ -7,5 +7,6 @@ const receiverRouter = express.Router();
 receiverRouter.get("/audio/:id", getAudio);
 
 //receive photo
+receiverRouter.get("/images/:id", getImages);
 
 export default receiverRouter;
