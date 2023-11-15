@@ -45,53 +45,50 @@ class _CreatorProfileState extends State<CreatorProfile> {
                         topRight: Radius.circular(30.0),
                       ),
                     ),
-                    child: Column(
+                    child: ListView(
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: CircleAvatar(
-                                  radius: 30,
-                                  backgroundColor:
-                                      Color.fromARGB(255, 116, 59, 107),
-                                  child: Icon(
-                                    Icons.account_circle,
-                                    size: 60,
-                                    color: Colors.white,
-                                  ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: CircleAvatar(
+                                radius: 30,
+                                backgroundColor:
+                                    Color.fromARGB(255, 116, 59, 107),
+                                child: Icon(
+                                  Icons.account_circle,
+                                  size: 60,
+                                  color: Colors.white,
                                 ),
                               ),
-                              // SizedBox(width: 20),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Text(
-                                        "Full Name",
-                                        style: TextStyle(
-                                          fontSize: 25,
-                                          fontWeight: FontWeight.bold,
-                                        ),
+                            ),
+                            // SizedBox(width: 20),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Text(
+                                      "Full Name",
+                                      style: TextStyle(
+                                        fontSize: 25,
+                                        fontWeight: FontWeight.bold,
                                       ),
-                                      SizedBox(width: 5),
-                                    ],
-                                  ),
-                                  Text("Creating Memories Together"),
-                                ],
-                              ),
-                              IconButton(
-                                icon: Icon(Icons.edit,
-                                    size: 35,
-                                    color: Color.fromARGB(255, 116, 59, 107)),
-                                onPressed: () {},
-                              ),
-                            ],
-                          ),
+                                    ),
+                                    SizedBox(width: 5),
+                                  ],
+                                ),
+                                Text("Creating Memories Together"),
+                              ],
+                            ),
+                            IconButton(
+                              icon: Icon(Icons.edit,
+                                  size: 35,
+                                  color: Color.fromARGB(255, 116, 59, 107)),
+                              onPressed: () {},
+                            ),
+                          ],
                         ),
                         SizedBox(
                           height: 10,
@@ -235,7 +232,7 @@ class _CreatorProfileState extends State<CreatorProfile> {
           children: [
             GestureDetector(
               onTap: () {
-                print('Heart Icon Clicked');
+                _showAlertDialog(context);
               },
               child: Row(
                 children: [
@@ -322,4 +319,43 @@ class StatsCircularIndicator extends StatelessWidget {
       ],
     );
   }
+}
+
+void _showAlertDialog(BuildContext context) {
+  // Create a text controller for the input field
+  TextEditingController _textFieldController = TextEditingController();
+
+  // Show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Alert Dialog'),
+        content: Column(
+          children: [
+            Text('Enter something:'),
+            TextField(
+              controller: _textFieldController,
+              decoration: InputDecoration(hintText: 'Input'),
+            ),
+          ],
+        ),
+        actions: <Widget>[
+          TextButton(
+            child: Text('Cancel'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          TextButton(
+            child: Text('OK'),
+            onPressed: () {
+              print('Input: ${_textFieldController.text}');
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
 }
