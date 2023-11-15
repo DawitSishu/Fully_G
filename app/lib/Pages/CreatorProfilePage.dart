@@ -1,4 +1,6 @@
+import 'package:Yene/util/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class CreatorProfile extends StatefulWidget {
   const CreatorProfile({super.key});
@@ -115,36 +117,36 @@ class _CreatorProfileState extends State<CreatorProfile> {
                                   ),
                                 ],
                               ),
-                              Row(
-                                children: <Widget>[
-                                  Icon(
-                                    Icons.favorite,
-                                    color: Colors.red,
-                                    size: 32,
-                                  ),
-                                  SizedBox(width: 10),
-                                  RichText(
-                                    text: TextSpan(
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors
-                                            .black, // You can customize the text color
-                                      ),
-                                      children: <TextSpan>[
-                                        TextSpan(text: "My Love: "),
-                                        TextSpan(
-                                          text: "babe",
-                                          style: TextStyle(
-                                            color: Color.fromARGB(255, 116, 59,
-                                                107), // Customize the text color
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
+                              // Row(
+                              //   children: <Widget>[
+                              //     Icon(
+                              //       Icons.favorite,
+                              //       color: Colors.red,
+                              //       size: 32,
+                              //     ),
+                              //     SizedBox(width: 10),
+                              //     RichText(
+                              //       text: TextSpan(
+                              //         style: TextStyle(
+                              //           fontSize: 20,
+                              //           fontWeight: FontWeight.bold,
+                              //           color: Colors
+                              //               .black, // You can customize the text color
+                              //         ),
+                              //         children: <TextSpan>[
+                              //           TextSpan(text: "My Love: "),
+                              //           TextSpan(
+                              //             text: "babe",
+                              //             style: TextStyle(
+                              //               color: Color.fromARGB(255, 116, 59,
+                              //                   107), // Customize the text color
+                              //             ),
+                              //           ),
+                              //         ],
+                              //       ),
+                              //     )
+                              //   ],
+                              // ),
                               SizedBox(height: 10),
                               Row(
                                 children: <Widget>[
@@ -229,17 +231,59 @@ class _CreatorProfileState extends State<CreatorProfile> {
       floatingActionButton: InkWell(
         onTap: () async {},
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            IconButton(
-              color: const Color.fromARGB(255, 116, 59, 107),
-              padding: const EdgeInsets.all(0),
-              iconSize: 30,
-              alignment: Alignment.centerRight,
-              onPressed: () {},
-              icon: const Icon(Icons.logout),
+            GestureDetector(
+              onTap: () {
+                print('Heart Icon Clicked');
+              },
+              child: Row(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(15, 0, 0, 0),
+                    child: IconButton(
+                      color: Colors.red,
+                      padding: const EdgeInsets.all(0),
+                      iconSize: 30,
+                      alignment: Alignment.centerRight,
+                      onPressed: () {},
+                      icon: FaIcon(
+                        FontAwesomeIcons.heartCirclePlus,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Text(
+                    "ADD ID",
+                    style: TextStyle(
+                      fontSize: 18,
+                      // fontWeight: FontWeight.bold,
+                      // color: Colors.black,
+                    ),
+                  ),
+                ],
+              ),
             ),
-            const Text('Log out'),
+            GestureDetector(
+              onTap: () {
+                print('logout');
+              },
+              child: Row(
+                children: [
+                  IconButton(
+                    color: const Color.fromARGB(255, 116, 59, 107),
+                    padding: const EdgeInsets.all(0),
+                    iconSize: 30,
+                    alignment: Alignment.centerRight,
+                    onPressed: () {},
+                    icon: const Icon(Icons.logout_outlined),
+                  ),
+                  const Text('Log out'),
+                ],
+              ),
+            ),
           ],
         ),
       ),
