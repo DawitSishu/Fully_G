@@ -51,7 +51,7 @@ class _CreatorProfileState extends State<CreatorProfile> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.all(12.0),
+                              padding: EdgeInsets.fromLTRB(15.0, 0, 0, 15),
                               child: CircleAvatar(
                                 radius: 30,
                                 backgroundColor:
@@ -232,7 +232,12 @@ class _CreatorProfileState extends State<CreatorProfile> {
           children: [
             GestureDetector(
               onTap: () {
-                _showAlertDialog(context);
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertForm(buttonText: "Insert Partner's Love ID");
+                  },
+                );
               },
               child: Row(
                 children: [
@@ -243,7 +248,15 @@ class _CreatorProfileState extends State<CreatorProfile> {
                       padding: const EdgeInsets.all(0),
                       iconSize: 30,
                       alignment: Alignment.centerRight,
-                      onPressed: () {},
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertForm(
+                                buttonText: "Insert Partner's Love ID");
+                          },
+                        );
+                      },
                       icon: FaIcon(
                         FontAwesomeIcons.heartCirclePlus,
                       ),
@@ -274,7 +287,9 @@ class _CreatorProfileState extends State<CreatorProfile> {
                     padding: const EdgeInsets.all(0),
                     iconSize: 30,
                     alignment: Alignment.centerRight,
-                    onPressed: () {},
+                    onPressed: () {
+                      print('logouted');
+                    },
                     icon: const Icon(Icons.logout_outlined),
                   ),
                   const Text('Log out'),
@@ -321,41 +336,89 @@ class StatsCircularIndicator extends StatelessWidget {
   }
 }
 
-void _showAlertDialog(BuildContext context) {
-  // Create a text controller for the input field
-  TextEditingController _textFieldController = TextEditingController();
+class AlertForm extends StatefulWidget {
+  final String buttonText;
 
-  // Show the dialog
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: Text('Alert Dialog'),
-        content: Column(
-          children: [
-            Text('Enter something:'),
-            TextField(
-              controller: _textFieldController,
-              decoration: InputDecoration(hintText: 'Input'),
-            ),
-          ],
-        ),
-        actions: <Widget>[
-          TextButton(
-            child: Text('Cancel'),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-          TextButton(
-            child: Text('OK'),
-            onPressed: () {
-              print('Input: ${_textFieldController.text}');
-              Navigator.of(context).pop();
-            },
+  const AlertForm({
+    Key? key,
+    required this.buttonText,
+  }) : super(key: key);
+
+  @override
+  State<AlertForm> createState() => _AlertFormState();
+}
+
+class _AlertFormState extends State<AlertForm> {
+  String data = '';
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20.0),
+      ),
+      elevation: 0,
+      backgroundColor: Colors.transparent,
+      child: contentBox(context),
+    );
+  }
+
+  contentBox(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        shape: BoxShape.rectangle,
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: Color.fromARGB(255, 116, 59, 107),
+            blurRadius: 10,
+            offset: const Offset(0, 5),
           ),
         ],
-      );
-    },
-  );
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Text(
+            widget.buttonText,
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 20),
+          InputBox(
+            inputLabel: "Lover Id",
+            placeHolder: "Enter your Partner's Love Id",
+            update: (value) {
+              data = value;
+            },
+            icon: Icon(Icons.favorite),
+          ),
+          const SizedBox(height: 20),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 30),
+              primary: Color.fromARGB(255, 116, 59, 107),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(25.0),
+              ),
+            ),
+            onPressed: () {
+              print(data);
+            },
+            child: Text(
+              'Submit',
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: 16,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
