@@ -37,7 +37,5 @@ void main() async {
 }
 
 
-//integrate tehe beating hear in the home keza u can add the connect in the 
-//profile/yhone bota then u can show the couple id ogether keza in the home show
-// the memories i.e. in the previous app lay yalewn ena integrate that then 
+// u can show the couple id ogether
 // on memory clicked wede dirow app wisedew there's nth 2 loose.
