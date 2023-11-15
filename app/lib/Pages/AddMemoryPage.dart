@@ -18,12 +18,12 @@ class _AddMemoryState extends State<AddMemory> {
         leadingWidth: 40,
         backgroundColor: Colors.white,
         leading: Icon(
-          Icons.favorite_sharp,
+          Icons.card_giftcard_sharp,
           size: 25,
           color: Colors.redAccent,
         ),
         title: Text(
-          'ADD Memory',
+          'ADD Gift',
           style: TextStyle(
             fontWeight: FontWeight.w600,
             fontSize: 24,

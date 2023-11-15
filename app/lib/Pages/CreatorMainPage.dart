@@ -34,7 +34,7 @@ class _CreatorMainPageState extends State<CreatorMainPage>
         size: 27,
       ),
       child: Text(
-        'Add Memory',
+        'Add Gift',
         maxLines: 1,
         softWrap: false,
         style: TextStyle(
