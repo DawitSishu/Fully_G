@@ -200,8 +200,7 @@ class _CreatorProfileState extends State<CreatorProfile> {
                           child: Row(
                             children: <Widget>[
                               Icon(
-                                Icons
-                                    .show_chart, // Replace with an appropriate icon
+                                Icons.show_chart,
                                 color: Color.fromARGB(255, 116, 59, 107),
                                 size: 32,
                               ),
@@ -213,10 +212,8 @@ class _CreatorProfileState extends State<CreatorProfile> {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              // Create a circular indicator for stats (e.g., out of 100)
                               SizedBox(width: 10),
-                              StatsCircularIndicator(
-                                  percent: 75), // Example percentage
+                              StatsCircularIndicator(percent: 75),
                             ],
                           ),
                         ),
