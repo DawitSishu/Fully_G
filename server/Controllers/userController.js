@@ -91,6 +91,41 @@ export const logIN = asyncHandler(async (req, res) => {
     message: "Login successful",
     userId: user.id,
     phone: user.username,
+    love_id: user.love_id,
     token: token,
+  });
+});
+
+//@desc update user profile
+//@route POST /api/users/updateProfile
+//@access private
+export const updateProfile = asyncHandler(async (req, res) => {
+  const { phone, password, full_name, nick_name } = req.body;
+
+  const { id } = req.user;
+
+  if (!phone || !password) {
+    const err = new Error("All fields are required");
+    err.statusCode = 400;
+    throw err;
+  }
+
+  if (!/^0\d{9}$/.test(phone)) {
+    const err = new Error("Invalid Phone Number");
+    err.statusCode = 400;
+    throw err;
+  }
+
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  const updateQuery =
+    "UPDATE users SET phone_number = ?, password = ?, full_name = ?, nick_name = ? WHERE id = ?";
+  const updateValues = [phone, hashedPassword, full_name, nick_name, id];
+
+  const final = await pool.query(updateQuery, updateValues);
+
+  res.status(200).json({
+    message: "Profile updated successfully",
+    data: [],
   });
 });
