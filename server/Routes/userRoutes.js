@@ -1,5 +1,6 @@
 import express from "express";
 import { signUp, logIN, updateProfile } from "../Controllers/userController.js";
+import userAuthChecker from "../MiddleWares/UserAuthChecker.js";
 
 const userRouter = express.Router();
 
@@ -10,6 +11,6 @@ userRouter.post("/signup", signUp);
 userRouter.post("/login", logIN);
 
 //update profile
-userRouter.put("/updateProfile", updateProfile);
+userRouter.put("/updateProfile",userAuthChecker, updateProfile);
 
 export default userRouter;
