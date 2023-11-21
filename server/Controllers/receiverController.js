@@ -53,7 +53,6 @@ export const getImages = asyncHandler(async (req, res) => {
   res.sendFile(absolutePath);
 });
 
-
 // //@desc receive uploaded files (audio and images)
 // //@route GET /api/receiver/files/:id
 // //@access private
@@ -69,7 +68,7 @@ export const getImages = asyncHandler(async (req, res) => {
 //   const selectAudioQuery = "SELECT file_path FROM audioFiles WHERE id = ?";
 //   const selectImageQuery = "SELECT file_path FROM imageFiles WHERE id = ?";
 //   const values = [fileId];
-  
+
 //   const audioResults = await pool.query(selectAudioQuery, values);
 //   const imageResults = await pool.query(selectImageQuery, values);
 
@@ -83,7 +82,7 @@ export const getImages = asyncHandler(async (req, res) => {
 //   const imageFilePath = imageResults[0][0].file_path;
 //   const absoluteAudioPath = path.resolve(audioFilePath);
 //   const absoluteImagePath = path.resolve(imageFilePath);
-  
+
 //   // Send both audio and image files as attachments
 //   res.attachment('audio.mp3');
 //   res.attachment('image.jpg');
@@ -96,3 +95,26 @@ export const getImages = asyncHandler(async (req, res) => {
 //   };
 //   res.status(200).json(successResponse);
 // });
+
+//@desc receive gift
+//@route GET /api/receiver/gift
+//@access private
+export const receiveGift = asyncHandler(async (rew, res) => {
+  const { partner_id } = req.user;
+
+  if (!partner_id) {
+    const err = new Error("You have not Added Partner's LoverID.");
+    err.statusCode = 400;
+    throw err;
+  }
+
+  const query = "SELECT * from gift WHERE love_id = ?";
+  const value = [partner_id];
+
+  const result = await pool.query(query, value);
+
+  res.json({
+    message: "Successfully retrievied Gifts",
+    data: result[0][0],
+  });
+});
