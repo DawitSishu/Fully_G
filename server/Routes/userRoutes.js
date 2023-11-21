@@ -1,5 +1,10 @@
 import express from "express";
-import { signUp, logIN, updateProfile } from "../Controllers/userController.js";
+import {
+  signUp,
+  logIN,
+  updateProfile,
+  addId,
+} from "../Controllers/userController.js";
 import userAuthChecker from "../MiddleWares/UserAuthChecker.js";
 
 const userRouter = express.Router();
@@ -11,6 +16,9 @@ userRouter.post("/signup", signUp);
 userRouter.post("/login", logIN);
 
 //update profile
-userRouter.put("/updateProfile",userAuthChecker, updateProfile);
+userRouter.put("/updateProfile", userAuthChecker, updateProfile);
+
+//add the partner's love id
+userRouter.put("/addId", userAuthChecker, addId);
 
 export default userRouter;

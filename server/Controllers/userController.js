@@ -129,3 +129,27 @@ export const updateProfile = asyncHandler(async (req, res) => {
     data: [],
   });
 });
+
+//@desc add partner love id
+//@route PUT /api/users/addId
+//@access private
+export const addId = asyncHandler(async (req, res) => {
+  const { uid } = req.body;
+  const { id } = req.user;
+
+  if (!uid) {
+    const err = new Error("Please Include A valid LoverID");
+    err.statusCode = 400;
+    throw err;
+  }
+
+  const result = await pool.query(
+    "UPDATE users SET partner_id = ? WHERE id = ?",
+    [uid, id]
+  );
+
+  res.json({
+    message: "Love Id imported Successfully",
+    data: [],
+  });
+});
