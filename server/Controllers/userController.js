@@ -143,6 +143,14 @@ export const addId = asyncHandler(async (req, res) => {
     throw err;
   }
 
+  const user = await pool.query("SELECT * from users WHERE love_id = ?", [uid]);
+
+  if (!user || !user[0][0] || user[0][0].length <= 0) {
+    const err = new Error("Please Include A valid LoverID");
+    err.statusCode = 400;
+    throw err;
+  }
+
   const result = await pool.query(
     "UPDATE users SET partner_id = ? WHERE id = ?",
     [uid, id]
