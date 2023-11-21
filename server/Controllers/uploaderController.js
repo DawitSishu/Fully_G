@@ -28,6 +28,10 @@ export const uploadFile = asyncHandler(async (req, res) => {
   res.json({ message: `${message} uploaded successfully`, data: [] });
 });
 
+
+//@desc uploads memory audio
+//@route POST /api/creator/addGift
+//@access private
 export const addGift = asyncHandler(async (req, res) => {
   const { love_id, id } = req.user;
   const { title, description } = req.body;
