@@ -5,7 +5,7 @@ import asyncHandler from "express-async-handler";
 //@route POST /api/creator/upload
 //@access private
 export const uploadFile = asyncHandler(async (req, res) => {
-  const userId = req.body.userId;
+  const userId = req.user.id;
   const fileName = req.file.originalname;
   const filePath = req.file.path;
   const isImage = req.body.isImage;
@@ -25,5 +25,28 @@ export const uploadFile = asyncHandler(async (req, res) => {
   const result = await pool.query(insertQuery, values);
 
   const message = isImage ? "Memory" : "Audio";
-  res.json({ message: `${message} uploaded successfully` });
+  res.json({ message: `${message} uploaded successfully`, data: [] });
+});
+
+export const addGift = asyncHandler(async (req, res) => {
+  const { love_id, id } = req.user;
+  const { title, description } = req.body;
+
+  //use the id to find the id of images and audios or find other method
+
+  if (!title || !description) {
+    const err = new Error("Please Include Correct Fields");
+    err.statusCode = 400;
+    throw err;
+  }
+  const query =
+    "INSERT INTO gift (love_id, title, description) VALUES (?, ?, ?)";
+  const values = [love_id, title, description];
+
+  const result = await pool.query(query, values);
+
+  res.json({
+    message: "Gift has been added Successfully",
+    data: [],
+  });
 });
