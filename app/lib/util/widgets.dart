@@ -164,6 +164,70 @@ class _BeatingHeartState extends State<BeatingHeart>
   }
 }
 
+// class MemoryCard extends StatelessWidget {
+//   final String? imageUrl;
+//   final String? memoryText;
+//   final String? desc;
+
+//   MemoryCard({
+//     required this.imageUrl,
+//     required this.memoryText,
+//     required this.desc,
+//   });
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Card(
+//       elevation: 5.0,
+//       shape: RoundedRectangleBorder(
+//         borderRadius: BorderRadius.circular(15.0),
+//       ),
+//       child: Column(
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: [
+//           Flexible(
+//             flex: 1,
+//             child: Container(
+//               width: double.infinity,
+//               decoration: BoxDecoration(
+//                 borderRadius: BorderRadius.vertical(top: Radius.circular(15.0)),
+//                 image: DecorationImage(
+//                   image: AssetImage(imageUrl!),
+//                   fit: BoxFit.cover,
+//                 ),
+//               ),
+//             ),
+//           ),
+//           Padding(
+//             padding: const EdgeInsets.all(20.0),
+//             child: Column(
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               children: [
+//                 Text(
+//                   memoryText ?? '',
+//                   style: TextStyle(
+//                     fontSize: 18.0,
+//                     fontWeight: FontWeight.bold,
+//                   ),
+//                 ),
+//                 SizedBox(
+//                   height: 8, // Adjust this spacing as needed
+//                 ),
+//                 Text(
+//                   desc ?? '',
+//                   style: TextStyle(
+//                     fontSize: 16.0,
+//                     color: Colors.grey,
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
 class MemoryCard extends StatelessWidget {
   final String? imageUrl;
   final String? memoryText;
@@ -208,6 +272,7 @@ class MemoryCard extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 18.0,
                     fontWeight: FontWeight.bold,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
                 SizedBox(
@@ -218,6 +283,7 @@ class MemoryCard extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 16.0,
                     color: Colors.grey,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
               ],

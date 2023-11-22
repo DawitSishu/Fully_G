@@ -1,11 +1,12 @@
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 class MemoryPage extends StatefulWidget {
   final String imageUrl;
   final String title;
   final String description;
   final String audioUrl;
+
   const MemoryPage({
     Key? key,
     required this.imageUrl,
@@ -26,6 +27,8 @@ class _MemoryPageState extends State<MemoryPage> {
   Duration _duration = const Duration();
   Duration _position = const Duration();
 
+  bool isExpanded = false;
+
   @override
   void initState() {
     initPlayer();
@@ -38,21 +41,19 @@ class _MemoryPageState extends State<MemoryPage> {
     super.dispose();
   }
 
-  Future initPlayer() async {
+  Future<void> initPlayer() async {
     player = AudioPlayer();
     path = AssetSource(widget.audioUrl);
     player.setReleaseMode(ReleaseMode.loop);
-    // set a callback for changing duration
+
     player.onDurationChanged.listen((Duration d) {
       setState(() => _duration = d);
     });
 
-    // set a callback for position change
     player.onPositionChanged.listen((Duration p) {
       setState(() => _position = p);
     });
 
-    // set a callback for when audio ends
     player.onPlayerComplete.listen((_) {
       setState(() => _position = _duration);
     });
@@ -72,10 +73,10 @@ class _MemoryPageState extends State<MemoryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[100],
+      backgroundColor: Colors.grey[500],
       appBar: AppBar(
-        backgroundColor: Colors.grey[100],
-        elevation: 0,
+        backgroundColor: Colors.grey[400],
+        elevation: 6,
         leading: GestureDetector(
           onTap: () {
             Navigator.pop(context);
@@ -84,7 +85,7 @@ class _MemoryPageState extends State<MemoryPage> {
             padding: const EdgeInsets.all(10),
             child: Icon(
               Icons.arrow_back_ios,
-              color: Colors.white,
+              color: Colors.red,
             ),
           ),
         ),
@@ -97,7 +98,7 @@ class _MemoryPageState extends State<MemoryPage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                widget.title, // Replace with your title
+                widget.title,
                 style: TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
@@ -135,13 +136,21 @@ class _MemoryPageState extends State<MemoryPage> {
                 ),
               ),
               const SizedBox(height: 30),
-              Text(
-                widget.description,
-                style: TextStyle(fontSize: 30),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    isExpanded = !isExpanded;
+                  });
+                },
+                child: Text(
+                  widget.description,
+                  style: TextStyle(fontSize: 20, color: Colors.white),
+                  maxLines: isExpanded ? null : 5,
+                  textAlign: TextAlign.center,
+                  overflow: isExpanded ? null : TextOverflow.ellipsis,
+                ),
               ),
-
-              const SizedBox(height: 50), // Adjusted spacing
-
+              const SizedBox(height: 50),
               SliderTheme(
                 data: SliderThemeData(
                   trackHeight: 4,
@@ -155,7 +164,7 @@ class _MemoryPageState extends State<MemoryPage> {
                   },
                   min: 0,
                   max: _duration.inSeconds.toDouble(),
-                  inactiveColor: Colors.white,
+                  inactiveColor: Colors.grey[600],
                   activeColor: Colors.red,
                 ),
               ),
