@@ -1,3 +1,4 @@
+import 'package:Yene/Pages/MemoryPage.dart';
 import 'package:Yene/util/widgets.dart';
 import 'package:flutter/material.dart';
 
@@ -57,7 +58,7 @@ class _HomePageState extends State<HomePage> {
                   boxShadow: [
                     BoxShadow(
                       color: Colors.grey.withOpacity(0.3),
-                      offset: Offset(0, 4), // Adjusted offset for bottom shadow
+                      offset: Offset(0, 4),
                       blurRadius: 8,
                       spreadRadius: 0,
                     ),
@@ -107,7 +108,7 @@ class _HomePageState extends State<HomePage> {
               Text(
                 "My Memories",
                 style: TextStyle(
-                  fontSize: 26, // Decreased font size
+                  fontSize: 26,
                   fontWeight: FontWeight.bold,
                   color: Color.fromARGB(255, 116, 59, 107),
                 ),
@@ -117,19 +118,27 @@ class _HomePageState extends State<HomePage> {
               ),
               GridView.builder(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 1, // Set the number of cards in each row
-                  mainAxisSpacing:
-                      8.0, // Set the vertical spacing between cards
-                  crossAxisSpacing:
-                      8.0, // Set the horizontal spacing between cards
+                  crossAxisCount: 1,
+                  mainAxisSpacing: 8.0,
+                  crossAxisSpacing: 8.0,
                 ),
-                physics: NeverScrollableScrollPhysics(), // Disable scrolling
+                physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: memories.length,
                 itemBuilder: (context, index) {
                   final item = memories[index];
                   return GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => MemoryPage(
+                                    imageUrl: "${item["img"]}",
+                                    title: "${item['title']}",
+                                    description: "${item['description']}",
+                                    audioUrl: "audios/message.mp3",
+                                  )));
+                    },
                     child: MemoryCard(
                       memoryText: item['title'],
                       imageUrl: item["img"],

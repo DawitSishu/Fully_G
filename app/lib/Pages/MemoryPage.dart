@@ -1,12 +1,12 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 
-class PlayerPage extends StatefulWidget {
+class MemoryPage extends StatefulWidget {
   final String imageUrl;
   final String title;
   final String description;
   final String audioUrl;
-  const PlayerPage({
+  const MemoryPage({
     Key? key,
     required this.imageUrl,
     required this.title,
@@ -15,10 +15,10 @@ class PlayerPage extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<PlayerPage> createState() => _PlayerPageState();
+  State<MemoryPage> createState() => _MemoryPageState();
 }
 
-class _PlayerPageState extends State<PlayerPage> {
+class _MemoryPageState extends State<MemoryPage> {
   bool isPlaying = false;
   late final AudioPlayer player;
   late final AssetSource path;
