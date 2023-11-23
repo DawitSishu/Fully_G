@@ -47,7 +47,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           pages: [
             PageViewModel(
               title: "",
-              body: "Discover the World of Possibilities",
+              body:
+                  "FROM shared moments, THROUGH life's challenges and joys, TO the everlasting tapestry of cherished CONNECTION.",
               image: Image.asset(
                 'assets/images/t1.png',
                 height: 300,
@@ -56,7 +57,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             ),
             PageViewModel(
               title: "",
-              body: "Unlock a World of Creativity and Innovation",
+              body:
+                  "Not for any, not for all, but for the soul I call MINE(የኔ)",
               image: Image.asset(
                 'assets/images/t2.png',
                 height: 300,
@@ -66,10 +68,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             PageViewModel(
               useScrollView: false,
               title: "",
-              image: Image.asset(
-                'assets/images/t3.png',
-                height: 300,
-              ),
+              image: orientation == Orientation.portrait
+                  ? Image.asset(
+                      'assets/images/t3.png',
+                      height: 300,
+                    )
+                  : null,
               bodyWidget: Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -77,7 +81,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     const WidgetSpace(
                       space: 25,
                       child: Text(
-                        'Join Us Today and Experience Excellence!',
+                        'Not just an App, but an Immersive Journey where LOVE and MEMORIES Intertwine.',
                         style: bodyStyle,
                         textAlign: TextAlign.center,
                       ),
