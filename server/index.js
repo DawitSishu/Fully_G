@@ -17,9 +17,12 @@ app.use(express.json());
 app.use("/api/users", userRouter);
 app.use("/api/creator", creatorRouter);
 app.use("/api/receiver", receiverRouter);
+app.get("/", (req, res) => {
+  res.json("running");
+});
 
 app.use(errorHandler);
 
-app.listen(5000, () => {
-  console.log("running on port 5000");
+app.listen(5000, "0.0.0.0", () => {
+  console.log("running on http://0.0.0.0:5000");
 });
