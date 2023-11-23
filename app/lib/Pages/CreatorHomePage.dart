@@ -66,36 +66,42 @@ class _HomePageState extends State<HomePage> {
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: Column(
+                  child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: BeatingHeart(),
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Top Text',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                      BeatingHeart(),
+                      SizedBox(width: 20),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Hand in hand, hearts aligned,Love\'s journey, beautifully designed',
+                              style: TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black87,
+                                fontFamily: 'Roboto',
                               ),
-                              Text(
-                                'Bottom Text',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                            ),
+                            SizedBox(height: 12),
+                            Container(
+                              height: 1,
+                              color: Colors.grey[300],
+                              width: double.infinity,
+                            ),
+                            SizedBox(height: 12),
+                            Text(
+                              'Embrace the beauty of love!',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontStyle: FontStyle.italic,
+                                color: Colors.black54,
+                                fontFamily: 'Open Sans',
                               ),
-                            ],
-                          ),
-                        ],
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -152,7 +158,3 @@ class _HomePageState extends State<HomePage> {
         ));
   }
 }
-
-
-// dave add some design from the thing from the design
-// and also make him change the text (poem) add templates
