@@ -1,6 +1,19 @@
 import 'package:Yene/util/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+import 'package:http/http.dart' as http;
+
+void fetchData() async {
+  var url = 'http://192.168.42.56:5000';
+
+  var response = await http.get(Uri.parse(url));
+  if (response.statusCode == 200) {
+    print('Response: ${response.body}');
+    // Handle your data here
+  } else {
+    print('Failed to fetch data: ${response.statusCode}');
+  }
+}
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({Key? key}) : super(key: key);
@@ -11,6 +24,12 @@ class OnboardingScreen extends StatefulWidget {
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
   final introKey = GlobalKey<IntroductionScreenState>();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    fetchData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -94,11 +113,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         ),
                       ),
                       onPressed: () async {
+                        fetchData();
                         // Navigate to the login screen
-                        await Navigator.popAndPushNamed(
-                          context,
-                          'login',
-                        );
+                        // await Navigator.popAndPushNamed(
+                        //   context,
+                        //   'login',
+                        // );
                       },
                       child: Ink(
                         decoration: BoxDecoration(
