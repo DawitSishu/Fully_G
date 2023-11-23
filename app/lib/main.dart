@@ -23,7 +23,7 @@ void main() async {
     theme: ThemeData(
       fontFamily: 'Poppins',
     ),
-    initialRoute: 'main',
+    initialRoute: '/',
     debugShowCheckedModeBanner: false,
     routes: {
       '/': (context) => OnboardingScreen(),
@@ -38,4 +38,3 @@ void main() async {
 
 
 // u can show the couple id ogether
-// on memory clicked wede dirow app wisedew there's nth 2 loose.
