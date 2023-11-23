@@ -86,7 +86,15 @@ class _CreatorProfileState extends State<CreatorProfile> {
                               icon: Icon(Icons.edit,
                                   size: 35,
                                   color: Color.fromARGB(255, 116, 59, 107)),
-                              onPressed: () {},
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return UpdateProfile(
+                                        buttonText: "Update Your Profile");
+                                  },
+                                );
+                              },
                             ),
                           ],
                         ),
@@ -287,9 +295,7 @@ class _CreatorProfileState extends State<CreatorProfile> {
                     padding: const EdgeInsets.all(0),
                     iconSize: 30,
                     alignment: Alignment.centerRight,
-                    onPressed: () {
-                      print('logouted');
-                    },
+                    onPressed: () {},
                     icon: const Icon(Icons.logout_outlined),
                   ),
                   const Text('Log out'),
@@ -410,6 +416,120 @@ class _AlertFormState extends State<AlertForm> {
             },
             child: Text(
               'Submit',
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: 16,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class UpdateProfile extends StatefulWidget {
+  final String buttonText;
+
+  const UpdateProfile({
+    Key? key,
+    required this.buttonText,
+  }) : super(key: key);
+
+  @override
+  State<UpdateProfile> createState() => _UpdateProfileState();
+}
+
+class _UpdateProfileState extends State<UpdateProfile> {
+  String data = '';
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20.0),
+      ),
+      elevation: 0,
+      backgroundColor: Colors.transparent,
+      child: contentBox(context),
+    );
+  }
+
+  contentBox(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        shape: BoxShape.rectangle,
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: Color.fromARGB(255, 116, 59, 107),
+            blurRadius: 10,
+            offset: const Offset(0, 5),
+          ),
+        ],
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Text(
+            widget.buttonText,
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 20),
+          InputBox(
+            inputLabel: "Full Name",
+            placeHolder: "Enter your Full Name",
+            update: (value) {
+              data = value;
+            },
+            icon: Icon(Icons.person),
+          ),
+          const SizedBox(height: 20),
+          InputBox(
+            inputLabel: "Nick Name",
+            placeHolder: "Enter your Nick Name",
+            update: (value) {
+              data = value;
+            },
+            icon: Icon(Icons.person_2_rounded),
+          ),
+          const SizedBox(height: 20),
+          InputBox(
+            inputLabel: "Phone Number",
+            placeHolder: "Enter your Phone Number",
+            update: (value) {
+              data = value;
+            },
+            icon: Icon(Icons.phone),
+          ),
+          const SizedBox(height: 20),
+          InputBox(
+            inputLabel: "Password",
+            placeHolder: "Enter your new Password",
+            update: (value) {
+              data = value;
+            },
+            icon: Icon(Icons.lock),
+          ),
+          const SizedBox(height: 20),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 30),
+              primary: Color.fromARGB(255, 116, 59, 107),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(25.0),
+              ),
+            ),
+            onPressed: () {
+              print(data);
+            },
+            child: Text(
+              'Update',
               style: TextStyle(
                 fontWeight: FontWeight.w700,
                 fontSize: 16,
