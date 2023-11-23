@@ -356,6 +356,27 @@ class AlertForm extends StatefulWidget {
 
 class _AlertFormState extends State<AlertForm> {
   String data = '';
+
+  Future<bool> _onWillPop() async {
+    return await showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Are you sure?'),
+        content: Text('Do you want to leave Inserting Partner\'s Love ID?'),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: Text('No'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: Text('Yes'),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -364,7 +385,10 @@ class _AlertFormState extends State<AlertForm> {
       ),
       elevation: 0,
       backgroundColor: Colors.transparent,
-      child: contentBox(context),
+      child: WillPopScope(
+        onWillPop: _onWillPop,
+        child: contentBox(context),
+      ),
     );
   }
 
@@ -443,6 +467,27 @@ class UpdateProfile extends StatefulWidget {
 
 class _UpdateProfileState extends State<UpdateProfile> {
   String data = '';
+
+  Future<bool> _onWillPop() async {
+    return await showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Are you sure?'),
+        content: Text('Do you want to leave without updating?'),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: Text('No'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: Text('Yes'),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -451,7 +496,10 @@ class _UpdateProfileState extends State<UpdateProfile> {
       ),
       elevation: 0,
       backgroundColor: Colors.transparent,
-      child: contentBox(context),
+      child: WillPopScope(
+        onWillPop: _onWillPop,
+        child: contentBox(context),
+      ),
     );
   }
 
