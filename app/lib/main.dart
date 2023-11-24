@@ -23,7 +23,7 @@ void main() async {
     theme: ThemeData(
       fontFamily: 'Poppins',
     ),
-    initialRoute: '/',
+    initialRoute: 'main',
     debugShowCheckedModeBanner: false,
     routes: {
       '/': (context) => OnboardingScreen(),
