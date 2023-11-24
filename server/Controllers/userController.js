@@ -8,8 +8,8 @@ import { v4 as uuidv4 } from "uuid";
 //@route POST /api/users/signup
 //@access public
 export const signUp = asyncHandler(async (req, res) => {
+  console.log(req.body);
   const { phone, password, full_name, nick_name, gender } = req.body;
-
   const love_id = uuidv4();
 
   if (!phone || !password) {
@@ -37,7 +37,7 @@ export const signUp = asyncHandler(async (req, res) => {
   const hashedPassword = await bcrypt.hash(password, 10);
 
   const final = await pool.query(
-    "INSERT INTO users (love_id,phone_number, password,full_name, nick_name, gender) VALUES (?,?,?,?,?)",
+    "INSERT INTO users (love_id,phone_number, password,full_name, nick_name, gender) VALUES (?,?,?,?,?,?)",
     [love_id, phone, hashedPassword, full_name, nick_name, gender]
   );
 
