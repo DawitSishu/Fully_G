@@ -1,4 +1,5 @@
 import 'package:Yene/Models/SignUpPageModel.dart';
+import 'package:Yene/services/AuthServices.dart';
 import 'package:Yene/util/widgets.dart';
 import 'package:flutter/material.dart';
 
@@ -142,8 +143,16 @@ class _SignUpPageState extends State<SignUpPage> {
                       onPressed: () async {
                         if (data.password != data.confirmPassword) {
                           print("##########################################");
+                          return;
                         }
-                        data.printAndGetData();
+                        if (data.checkSignUpData()) {
+                          print("fill all fields");
+                          data.printAndGetData();
+                          return;
+                        } else {
+                          final result = await signUp(data.printAndGetData());
+                          print(result['data']['message']);
+                        }
                       },
                       child: Ink(
                         decoration: BoxDecoration(

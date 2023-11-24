@@ -16,11 +16,11 @@ class SignUpData {
   String confirmPassword;
 
   checkSignUpData() {
-    return this.password.isEmpty ||
-        this.full_name.isEmpty ||
-        this.gender.isEmpty ||
-        this.nick_name.isEmpty ||
-        this.phone_number.isNotEmpty;
+    return password.isEmpty ||
+        full_name.isEmpty ||
+        gender.isEmpty ||
+        nick_name.isEmpty ||
+        phone_number.isEmpty;
   }
 
   printAndGetData() {
@@ -35,7 +35,7 @@ class SignUpData {
     return {
       "full_name": this.full_name,
       "nick_name": this.nick_name,
-      "phone_number": this.phone_number,
+      "phone": this.phone_number,
       "gender": this.gender,
       "password": this.password
     };
