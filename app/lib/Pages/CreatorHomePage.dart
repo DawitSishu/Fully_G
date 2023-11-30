@@ -76,6 +76,7 @@ class _HomePageState extends State<HomePage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
+                              //partner and paired up with
                               'Hand in hand, hearts aligned,Love\'s journey, beautifully designed',
                               style: TextStyle(
                                 fontSize: 22,

@@ -294,3 +294,72 @@ class MemoryCard extends StatelessWidget {
     );
   }
 }
+
+void showSnackbar(BuildContext context,
+    {String text = 'Please Enter All Required Fields!'}) {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      behavior: SnackBarBehavior.floating,
+      margin: const EdgeInsets.fromLTRB(35, 5, 35, 25),
+      backgroundColor: const Color(0xFFC72C41),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
+      content: Text(
+        text,
+        style: const TextStyle(
+          color: Colors.white,
+        ),
+        textAlign: TextAlign.center,
+      ),
+    ),
+  );
+}
+
+void successSnackbar(BuildContext context,
+    {String text = 'Your data is Saved Successfully!!'}) {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      behavior: SnackBarBehavior.floating,
+      margin: const EdgeInsets.fromLTRB(35, 5, 35, 25),
+      backgroundColor: Color.fromARGB(255, 75, 199, 44),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
+      content: Text(
+        text,
+        style: const TextStyle(
+          color: Colors.white,
+        ),
+        textAlign: TextAlign.center,
+      ),
+    ),
+  );
+}
+
+Future showConfirmationDialog(
+    BuildContext context, String title, String content) async {
+  return await showDialog<bool>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text(title),
+        content: Text(content),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop(true); // User confirmed
+            },
+            child: Text('Yes'),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop(false); // User canceled
+            },
+            child: Text('No'),
+          ),
+        ],
+      );
+    },
+  );
+}
