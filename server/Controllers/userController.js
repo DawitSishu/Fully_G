@@ -12,36 +12,20 @@ function generateUniqueID(length = 8) {
     const randomIndex = Math.floor(Math.random() * characters.length);
     id += characters.charAt(randomIndex);
   }
-
-  // Check if the generated ID already exists in the database (pseudo code)
-  // This should be an asynchronous call to your database to check for the ID's existence
-
-  // Assuming checkIfExistsInDatabase returns true if ID exists, false otherwise
   const exists = checkIfExistsInDatabase(id);
-
-  // If the ID exists, recursively call the function to generate a new one
   if (exists) {
     return generateUniqueID(length);
   }
 
-  return id.toUpperCase(); // Return ID in uppercase for case insensitivity
+  return id.toUpperCase();
 }
 
-// Function to check if ID exists in the database (you'll need to implement this)
 const checkIfExistsInDatabase = async (id) => {
   const result = await pool.query(
     "SELECT COUNT(*) AS count FROM users WHERE love_id = ?",
     [id]
   );
-
-  // Check if the count of rows is greater than 0 (ID exists) and return true, otherwise return false
   return result[0].count > 0;
-  // Perform a database query to check if the ID exists
-  // Return true if the ID exists, false otherwise (asynchronously)
-  // Example pseudo code:
-  // const result = await pool.query("SELECT * FROM users WHERE love_id = ?", [id]);
-  // return result.length > 0;
-  // return false; // Placeholder, replace with actual database check
 };
 
 //@desc creates a user
