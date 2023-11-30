@@ -142,16 +142,24 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                       onPressed: () async {
                         if (data.password != data.confirmPassword) {
-                          print("##########################################");
+                          showSnackbar(context, text: 'Passwords do not match');
                           return;
                         }
                         if (data.checkSignUpData()) {
+                          showSnackbar(context);
                           print("fill all fields");
                           data.printAndGetData();
                           return;
                         } else {
                           final result = await signUp(data.printAndGetData());
-                          print(result['data']['message']);
+                          if (result != null) {
+                            successSnackbar(context,
+                                text: result['data']['message']);
+                            Navigator.popAndPushNamed(context, 'login');
+                          } else {
+                            showSnackbar(context,
+                                text: 'Error: Please try again!!');
+                          }
                         }
                       },
                       child: Ink(
