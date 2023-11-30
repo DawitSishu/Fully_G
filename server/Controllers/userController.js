@@ -4,28 +4,54 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { v4 as uuidv4 } from "uuid";
 
-function generateUniqueID(length = 8) {
+async function generateUniqueID(length = 8, maxAttempts = 10) {
+  const characters = "abcdefghijklmnopqrstuvwxyz0123456789";
+  let attempts = 0;
+
+  const generateID = async () => {
+    let id = "";
+    for (let i = 0; i < length; i++) {
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      id += characters.charAt(randomIndex);
+    }
+
+    // Generate an array of potential IDs for batch check
+    const potentialIDs = [id.toUpperCase()]; // Initial ID
+    for (let i = 1; i < maxAttempts; i++) {
+      const newID = generateRandomID(); // Generate more potential IDs
+      potentialIDs.push(newID.toUpperCase());
+    }
+
+    const existsList = await checkIfExistsInDatabase(potentialIDs);
+    const exists = existsList.some((value) => value);
+
+    if (exists && attempts < maxAttempts) {
+      attempts++;
+      return generateID();
+    }
+
+    return exists ? null : id.toUpperCase();
+  };
+
+  return generateID();
+}
+
+const checkIfExistsInDatabase = async (ids) => {
+  const results = await pool.query(
+    "SELECT love_id FROM users WHERE love_id IN (?)",
+    [ids]
+  );
+  return results.map((row) => row.love_id);
+};
+
+const generateRandomID = (length = 8) => {
   const characters = "abcdefghijklmnopqrstuvwxyz0123456789";
   let id = "";
-
   for (let i = 0; i < length; i++) {
     const randomIndex = Math.floor(Math.random() * characters.length);
     id += characters.charAt(randomIndex);
   }
-  const exists = checkIfExistsInDatabase(id);
-  if (exists) {
-    return generateUniqueID(length);
-  }
-
-  return id.toUpperCase();
-}
-
-const checkIfExistsInDatabase = async (id) => {
-  const result = await pool.query(
-    "SELECT COUNT(*) AS count FROM users WHERE love_id = ?",
-    [id]
-  );
-  return result[0].count > 0;
+  return id;
 };
 
 //@desc creates a user
@@ -35,7 +61,7 @@ export const signUp = asyncHandler(async (req, res) => {
   console.log(req.body);
   const { phone, password, full_name, nick_name, gender } = req.body;
   // const love_id = uuidv4();
-  const love_id = generateUniqueID();
+  const love_id = await generateUniqueID();
 
   if (!phone || !password) {
     const err = new Error("All fields are required");

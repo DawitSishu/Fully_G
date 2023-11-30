@@ -152,10 +152,13 @@ class _SignUpPageState extends State<SignUpPage> {
                           return;
                         } else {
                           final result = await signUp(data.printAndGetData());
-                          if (result != null) {
+                          if (result != null && result['success'] == true) {
                             successSnackbar(context,
                                 text: result['data']['message']);
                             Navigator.popAndPushNamed(context, 'login');
+                          } else if (result['success'] == false) {
+                            showSnackbar(context,
+                                text: result['data']['message']);
                           } else {
                             showSnackbar(context,
                                 text: 'Error: Please try again!!');
