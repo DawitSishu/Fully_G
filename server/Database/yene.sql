@@ -52,7 +52,7 @@ DROP TABLE IF EXISTS `gift`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `gift` (
   `id` int(11) NOT NULL,
-  `love_id` char(36) DEFAULT NULL,
+  `love_id` VARCHAR(25) DEFAULT NULL,
   `image_id` int(11) DEFAULT NULL,
   `audio_id` int(11) DEFAULT NULL,
   `title` varchar(255) DEFAULT NULL,
@@ -118,8 +118,8 @@ CREATE TABLE `users` (
   `nick_name` varchar(255) DEFAULT NULL,
   `phone_number` varchar(255) DEFAULT NULL,
   `gender` varchar(255) DEFAULT NULL,
-  `love_id` char(36) NOT NULL,
-  `partner_id` char(36) DEFAULT NULL,
+  `love_id` VARCHAR(25) NOT NULL,
+  `partner_id` VARCHAR(25) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `love_id` (`love_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
