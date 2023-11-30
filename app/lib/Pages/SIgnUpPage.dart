@@ -133,13 +133,8 @@ class _SignUpPageState extends State<SignUpPage> {
                       ],
                     ),
                     SizedBox(height: 20),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.zero,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25.0),
-                        ),
-                      ),
+                    CustomButton(
+                      label: 'Sign Up',
                       onPressed: () async {
                         if (data.password != data.confirmPassword) {
                           showSnackbar(context, text: 'Passwords do not match');
@@ -165,37 +160,6 @@ class _SignUpPageState extends State<SignUpPage> {
                           }
                         }
                       },
-                      child: Ink(
-                        decoration: BoxDecoration(
-                          gradient: const LinearGradient(
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                            colors: [
-                              Color.fromARGB(255, 116, 59, 107),
-                              Color.fromARGB(255, 100, 58, 97)
-                            ],
-                          ),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(vertical: 15),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          constraints: const BoxConstraints(
-                            maxWidth: 200,
-                          ),
-                          child: const Center(
-                            child: Text(
-                              'Sign Up',
-                              style: TextStyle(
-                                fontWeight: FontWeight.w700,
-                                fontSize: 16,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
                     ),
                     SizedBox(height: 10),
                     Row(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class WidgetSpace extends StatelessWidget {
   const WidgetSpace({Key? key, this.child, this.space = 0.0}) : super(key: key);
@@ -362,4 +363,82 @@ Future showConfirmationDialog(
       );
     },
   );
+}
+
+class CustomButton extends StatefulWidget {
+  const CustomButton({Key? key, required this.onPressed, this.label = 'Button'})
+      : super(key: key);
+  final onPressed;
+  final String label;
+
+  @override
+  State<CustomButton> createState() => _CustomButtonState();
+}
+
+class _CustomButtonState extends State<CustomButton> {
+  var loading = false;
+  @override
+  Widget build(BuildContext context) => SizedBox(
+        height: 50,
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.transparent,
+            padding: EdgeInsets.zero,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+          ),
+          onPressed: () async {
+            if (!loading) {
+              setState(() {
+                loading = true;
+              });
+              await widget.onPressed();
+              loading = false;
+              setState(() {});
+            }
+          },
+          child: Ink(
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Color.fromARGB(255, 116, 59, 107),
+                  Color.fromARGB(255, 100, 58, 97)
+                ],
+              ),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Container(
+              padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              constraints: const BoxConstraints(
+                maxWidth: 250,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(right: 5),
+                    child: loading
+                        ? LoadingAnimationWidget.threeRotatingDots(
+                            color: Colors.white, size: 15)
+                        : null,
+                  ),
+                  Text(
+                    widget.label,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 18,
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
 }
