@@ -64,3 +64,6 @@ Future signUp(bodyData) async {
     };
   }
 }
+
+//to be tested later dave
+Future LogIn() async {}
