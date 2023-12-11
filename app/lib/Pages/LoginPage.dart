@@ -1,3 +1,4 @@
+import 'package:Yene/Models/SignInPageModel.dart';
 import 'package:Yene/util/widgets.dart';
 import 'package:flutter/material.dart';
 
@@ -7,6 +8,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final data = SignInData();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,25 +50,24 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     SizedBox(height: 20),
-                    TextFormField(
-                      decoration: InputDecoration(
-                        hintText: 'Phone Number',
-                        prefixIcon: Icon(Icons.person),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                      ),
+                    InputBox(
+                      inputLabel: 'Phone Number',
+                      icon: Icon(Icons.person),
+                      placeHolder: '09 *******',
+                      isPhone: true,
+                      update: (value) {
+                        data.phone = value;
+                      },
                     ),
                     SizedBox(height: 10),
-                    TextFormField(
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        hintText: 'Password',
-                        prefixIcon: Icon(Icons.lock),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                      ),
+                    InputBox(
+                      inputLabel: 'Password',
+                      icon: Icon(Icons.lock),
+                      placeHolder: '*********',
+                      isPassword: true,
+                      update: (value) {
+                        data.password = value;
+                      },
                     ),
                     SizedBox(height: 20),
                     CustomButton(
