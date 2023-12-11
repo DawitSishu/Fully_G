@@ -77,7 +77,7 @@ class _CreatorMainPageState extends State<CreatorMainPage>
         backgroundColor: Colors.white,
         body: TabBarView(
           controller: tabController,
-          children: [HomePage(), AddMemory(), CreatorProfile()],
+          children: const [HomePage(), AddMemory(), CreatorProfile()],
         ),
         bottomNavigationBar: DecoratedBox(
           decoration: const BoxDecoration(
@@ -89,7 +89,7 @@ class _CreatorMainPageState extends State<CreatorMainPage>
             labelPadding: EdgeInsets.zero,
             controller: tabController,
             splashBorderRadius: BorderRadius.circular(40),
-            labelColor: Color.fromARGB(255, 116, 59, 107),
+            labelColor: const Color.fromARGB(255, 116, 59, 107),
             unselectedLabelColor: Colors.grey,
             unselectedLabelStyle: const TextStyle(),
             tabs: myTabs,

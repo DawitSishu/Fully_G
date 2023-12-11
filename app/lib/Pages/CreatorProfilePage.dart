@@ -21,7 +21,7 @@ class _CreatorProfileState extends State<CreatorProfile> {
               children: [
                 Container(
                   height: 400,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage('assets/images/profile.png'),
                       fit: BoxFit.cover,
@@ -38,7 +38,7 @@ class _CreatorProfileState extends State<CreatorProfile> {
                   right: 0,
                   bottom: 0,
                   child: Container(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(30.0),
@@ -50,7 +50,7 @@ class _CreatorProfileState extends State<CreatorProfile> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Padding(
+                            const Padding(
                               padding: EdgeInsets.fromLTRB(15.0, 0, 0, 15),
                               child: CircleAvatar(
                                 radius: 30,
@@ -64,7 +64,7 @@ class _CreatorProfileState extends State<CreatorProfile> {
                               ),
                             ),
                             // SizedBox(width: 20),
-                            Column(
+                            const Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Row(
@@ -83,14 +83,14 @@ class _CreatorProfileState extends State<CreatorProfile> {
                               ],
                             ),
                             IconButton(
-                              icon: Icon(Icons.edit,
+                              icon: const Icon(Icons.edit,
                                   size: 35,
                                   color: Color.fromARGB(255, 116, 59, 107)),
                               onPressed: () {
                                 showDialog(
                                   context: context,
                                   builder: (context) {
-                                    return UpdateProfile(
+                                    return const UpdateProfile(
                                         buttonText: "Update Your Profile");
                                   },
                                 );
@@ -98,14 +98,14 @@ class _CreatorProfileState extends State<CreatorProfile> {
                             ),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         Padding(
                           padding: const EdgeInsets.all(16.0),
                           child: Column(
                             children: <Widget>[
-                              Row(
+                              const Row(
                                 children: <Widget>[
                                   Icon(
                                     Icons.person,
@@ -152,8 +152,8 @@ class _CreatorProfileState extends State<CreatorProfile> {
                               //     )
                               //   ],
                               // ),
-                              SizedBox(height: 10),
-                              Row(
+                              const SizedBox(height: 10),
+                              const Row(
                                 children: <Widget>[
                                   Icon(
                                     Icons.phone,
@@ -169,17 +169,17 @@ class _CreatorProfileState extends State<CreatorProfile> {
                                   ),
                                 ],
                               ),
-                              SizedBox(height: 10),
+                              const SizedBox(height: 10),
                               Row(
                                 children: <Widget>[
-                                  Icon(
+                                  const Icon(
                                     Icons.favorite,
                                     color: Colors.red,
                                     size: 32,
                                   ),
-                                  SizedBox(width: 10),
+                                  const SizedBox(width: 10),
                                   RichText(
-                                    text: TextSpan(
+                                    text: const TextSpan(
                                       style: TextStyle(
                                         fontSize: 20,
                                         fontWeight: FontWeight.bold,
@@ -202,8 +202,8 @@ class _CreatorProfileState extends State<CreatorProfile> {
                             ],
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(16.0),
+                        const Padding(
+                          padding: EdgeInsets.all(16.0),
                           child: Row(
                             children: <Widget>[
                               Icon(
@@ -243,14 +243,14 @@ class _CreatorProfileState extends State<CreatorProfile> {
                 showDialog(
                   context: context,
                   builder: (context) {
-                    return AlertForm(buttonText: "Insert Partner's Love ID");
+                    return const AlertForm(buttonText: "Insert Partner's Love ID");
                   },
                 );
               },
               child: Row(
                 children: [
                   Padding(
-                    padding: EdgeInsets.fromLTRB(15, 0, 0, 0),
+                    padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
                     child: IconButton(
                       color: Colors.red,
                       padding: const EdgeInsets.all(0),
@@ -260,20 +260,20 @@ class _CreatorProfileState extends State<CreatorProfile> {
                         showDialog(
                           context: context,
                           builder: (context) {
-                            return AlertForm(
+                            return const AlertForm(
                                 buttonText: "Insert Partner's Love ID");
                           },
                         );
                       },
-                      icon: FaIcon(
+                      icon: const FaIcon(
                         FontAwesomeIcons.heartCirclePlus,
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 5,
                   ),
-                  Text(
+                  const Text(
                     "ADD ID",
                     style: TextStyle(
                       fontSize: 18,
@@ -312,7 +312,7 @@ class _CreatorProfileState extends State<CreatorProfile> {
 class StatsCircularIndicator extends StatelessWidget {
   final double percent;
 
-  StatsCircularIndicator({required this.percent});
+  const StatsCircularIndicator({super.key, required this.percent});
 
   @override
   Widget build(BuildContext context) {
@@ -326,14 +326,14 @@ class StatsCircularIndicator extends StatelessWidget {
             value: percent / 100,
             strokeWidth: 4,
             backgroundColor: Colors.grey[300],
-            valueColor: AlwaysStoppedAnimation<Color>(
+            valueColor: const AlwaysStoppedAnimation<Color>(
               Color.fromARGB(255, 116, 59, 107),
             ),
           ),
         ),
         Text(
           '$percent%',
-          style: TextStyle(
+          style: const TextStyle(
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -361,16 +361,16 @@ class _AlertFormState extends State<AlertForm> {
     return await showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Are you sure?'),
-        content: Text('Do you want to leave Inserting Partner\'s Love ID?'),
+        title: const Text('Are you sure?'),
+        content: const Text('Do you want to leave Inserting Partner\'s Love ID?'),
         actions: <Widget>[
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
-            child: Text('No'),
+            child: const Text('No'),
           ),
           TextButton(
             onPressed: () => Navigator.of(context).pop(true),
-            child: Text('Yes'),
+            child: const Text('Yes'),
           ),
         ],
       ),
@@ -399,11 +399,11 @@ class _AlertFormState extends State<AlertForm> {
         shape: BoxShape.rectangle,
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
             color: Color.fromARGB(255, 116, 59, 107),
             blurRadius: 10,
-            offset: const Offset(0, 5),
+            offset: Offset(0, 5),
           ),
         ],
       ),
@@ -412,7 +412,7 @@ class _AlertFormState extends State<AlertForm> {
         children: <Widget>[
           Text(
             widget.buttonText,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
             ),
@@ -424,13 +424,12 @@ class _AlertFormState extends State<AlertForm> {
             update: (value) {
               data = value;
             },
-            icon: Icon(Icons.favorite),
+            icon: const Icon(Icons.favorite),
           ),
           const SizedBox(height: 20),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
-              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 30),
-              primary: Color.fromARGB(255, 116, 59, 107),
+              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 30), backgroundColor: const Color.fromARGB(255, 116, 59, 107),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(25.0),
               ),
@@ -438,7 +437,7 @@ class _AlertFormState extends State<AlertForm> {
             onPressed: () {
               print(data);
             },
-            child: Text(
+            child: const Text(
               'Submit',
               style: TextStyle(
                 fontWeight: FontWeight.w700,
@@ -472,16 +471,16 @@ class _UpdateProfileState extends State<UpdateProfile> {
     return await showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Are you sure?'),
-        content: Text('Do you want to leave without updating?'),
+        title: const Text('Are you sure?'),
+        content: const Text('Do you want to leave without updating?'),
         actions: <Widget>[
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
-            child: Text('No'),
+            child: const Text('No'),
           ),
           TextButton(
             onPressed: () => Navigator.of(context).pop(true),
-            child: Text('Yes'),
+            child: const Text('Yes'),
           ),
         ],
       ),
@@ -510,11 +509,11 @@ class _UpdateProfileState extends State<UpdateProfile> {
         shape: BoxShape.rectangle,
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
             color: Color.fromARGB(255, 116, 59, 107),
             blurRadius: 10,
-            offset: const Offset(0, 5),
+            offset: Offset(0, 5),
           ),
         ],
       ),
@@ -523,7 +522,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
         children: <Widget>[
           Text(
             widget.buttonText,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
             ),
@@ -535,7 +534,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
             update: (value) {
               data = value;
             },
-            icon: Icon(Icons.person),
+            icon: const Icon(Icons.person),
           ),
           const SizedBox(height: 20),
           InputBox(
@@ -544,7 +543,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
             update: (value) {
               data = value;
             },
-            icon: Icon(Icons.person_2_rounded),
+            icon: const Icon(Icons.person_2_rounded),
           ),
           const SizedBox(height: 20),
           InputBox(
@@ -553,7 +552,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
             update: (value) {
               data = value;
             },
-            icon: Icon(Icons.phone),
+            icon: const Icon(Icons.phone),
           ),
           const SizedBox(height: 20),
           InputBox(
@@ -562,13 +561,12 @@ class _UpdateProfileState extends State<UpdateProfile> {
             update: (value) {
               data = value;
             },
-            icon: Icon(Icons.lock),
+            icon: const Icon(Icons.lock),
           ),
           const SizedBox(height: 20),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
-              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 30),
-              primary: Color.fromARGB(255, 116, 59, 107),
+              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 30), backgroundColor: const Color.fromARGB(255, 116, 59, 107),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(25.0),
               ),
@@ -576,7 +574,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
             onPressed: () {
               print(data);
             },
-            child: Text(
+            child: const Text(
               'Update',
               style: TextStyle(
                 fontWeight: FontWeight.w700,

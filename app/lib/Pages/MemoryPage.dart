@@ -83,7 +83,7 @@ class _MemoryPageState extends State<MemoryPage> {
           },
           child: Container(
             padding: const EdgeInsets.all(10),
-            child: Icon(
+            child: const Icon(
               Icons.arrow_back_ios,
               color: Colors.red,
             ),
@@ -99,7 +99,7 @@ class _MemoryPageState extends State<MemoryPage> {
             children: [
               Text(
                 widget.title,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
@@ -120,7 +120,7 @@ class _MemoryPageState extends State<MemoryPage> {
                     BoxShadow(
                       color: Colors.black.withOpacity(0.3),
                       blurRadius: 10,
-                      offset: Offset(0, 5),
+                      offset: const Offset(0, 5),
                     ),
                   ],
                   borderRadius: BorderRadius.circular(20),
@@ -144,7 +144,7 @@ class _MemoryPageState extends State<MemoryPage> {
                 },
                 child: Text(
                   widget.description,
-                  style: TextStyle(fontSize: 20, color: Colors.white),
+                  style: const TextStyle(fontSize: 20, color: Colors.white),
                   maxLines: isExpanded ? null : 5,
                   textAlign: TextAlign.center,
                   overflow: isExpanded ? null : TextOverflow.ellipsis,
@@ -152,7 +152,7 @@ class _MemoryPageState extends State<MemoryPage> {
               ),
               const SizedBox(height: 50),
               SliderTheme(
-                data: SliderThemeData(
+                data: const SliderThemeData(
                   trackHeight: 4,
                   thumbShape: RoundSliderThumbShape(enabledThumbRadius: 8),
                 ),
@@ -173,11 +173,11 @@ class _MemoryPageState extends State<MemoryPage> {
                 children: [
                   Text(
                     "${(_position.inMinutes % 60).toString().padLeft(2, '0')}:${(_position.inSeconds % 60).toString().padLeft(2, '0')}",
-                    style: TextStyle(fontSize: 12, color: Colors.white),
+                    style: const TextStyle(fontSize: 12, color: Colors.white),
                   ),
                   Text(
                     "${(_duration.inMinutes % 60).toString().padLeft(2, '0')}:${(_duration.inSeconds % 60).toString().padLeft(2, '0')}",
-                    style: TextStyle(fontSize: 12, color: Colors.white),
+                    style: const TextStyle(fontSize: 12, color: Colors.white),
                   ),
                 ],
               ),
@@ -191,7 +191,7 @@ class _MemoryPageState extends State<MemoryPage> {
                       BoxShadow(
                         color: Colors.red.withOpacity(0.5),
                         blurRadius: 15,
-                        offset: Offset(0, 10),
+                        offset: const Offset(0, 10),
                       ),
                     ],
                   ),

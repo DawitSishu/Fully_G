@@ -1,4 +1,3 @@
-import 'package:Yene/util/widgets.dart';
 import 'package:flutter/material.dart';
 
 class AddMemory extends StatefulWidget {
@@ -17,12 +16,12 @@ class _AddMemoryState extends State<AddMemory> {
         elevation: 0,
         leadingWidth: 40,
         backgroundColor: Colors.white,
-        leading: Icon(
+        leading: const Icon(
           Icons.card_giftcard_sharp,
           size: 25,
           color: Colors.redAccent,
         ),
-        title: Text(
+        title: const Text(
           'ADD Gift',
           style: TextStyle(
             fontWeight: FontWeight.w600,
@@ -36,7 +35,7 @@ class _AddMemoryState extends State<AddMemory> {
         shrinkWrap: true,
         padding: const EdgeInsets.fromLTRB(15, 0, 15, 15),
         children: [
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           InkWell(
@@ -60,10 +59,10 @@ class _AddMemoryState extends State<AddMemory> {
                   IconButton(
                     onPressed: () {},
                     icon: const Icon(Icons.add_a_photo_sharp),
-                    color: Color.fromARGB(255, 116, 59, 107),
+                    color: const Color.fromARGB(255, 116, 59, 107),
                     iconSize: 50,
                   ),
-                  Padding(
+                  const Padding(
                     padding: EdgeInsets.all(10),
                     child: Text(
                       "Select Image",
@@ -77,17 +76,17 @@ class _AddMemoryState extends State<AddMemory> {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
-          Text(
+          const Text(
             'Add Title',
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           TextFormField(
@@ -97,17 +96,17 @@ class _AddMemoryState extends State<AddMemory> {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
-          Text(
+          const Text(
             'Add Description',
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           TextFormField(
@@ -117,7 +116,7 @@ class _AddMemoryState extends State<AddMemory> {
               ),
             ),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -125,9 +124,9 @@ class _AddMemoryState extends State<AddMemory> {
                 width: cardWidth,
                 child: OutlinedButton(
                   style: OutlinedButton.styleFrom(
-                    side: BorderSide(
+                    side: const BorderSide(
                         width: 2,
-                        color: const Color.fromRGBO(239, 239, 239, 1)),
+                        color: Color.fromRGBO(239, 239, 239, 1)),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
@@ -136,9 +135,9 @@ class _AddMemoryState extends State<AddMemory> {
                   onPressed: () {},
                   child: Container(
                     padding: const EdgeInsets.fromLTRB(10, 20, 10, 20),
-                    child: Column(
+                    child: const Column(
                       children: [
-                        const SizedBox(
+                        SizedBox(
                           height: 20,
                         ),
                         Icon(
@@ -147,7 +146,7 @@ class _AddMemoryState extends State<AddMemory> {
                           color: Color.fromARGB(
                               255, 100, 58, 97), // Adjust the color as needed
                         ),
-                        const Text(
+                        Text(
                           'Record Audio',
                           textAlign: TextAlign.center,
                           maxLines: 2,
@@ -159,7 +158,7 @@ class _AddMemoryState extends State<AddMemory> {
                             color: Colors.grey,
                           ),
                         ),
-                        const SizedBox(
+                        SizedBox(
                           height: 20,
                         ),
                       ],
@@ -171,9 +170,9 @@ class _AddMemoryState extends State<AddMemory> {
                 width: cardWidth,
                 child: OutlinedButton(
                   style: OutlinedButton.styleFrom(
-                      side: BorderSide(
+                      side: const BorderSide(
                           width: 2,
-                          color: const Color.fromRGBO(239, 239, 239, 1)),
+                          color: Color.fromRGBO(239, 239, 239, 1)),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
                       ),
@@ -181,8 +180,8 @@ class _AddMemoryState extends State<AddMemory> {
                   onPressed: () {},
                   child: Container(
                     padding: const EdgeInsets.fromLTRB(10, 20, 10, 20),
-                    child: Column(children: [
-                      const SizedBox(
+                    child: const Column(children: [
+                      SizedBox(
                         height: 20,
                       ),
                       Icon(
@@ -191,7 +190,7 @@ class _AddMemoryState extends State<AddMemory> {
                         color: Color.fromARGB(
                             255, 100, 58, 97), // Adjust the color as needed
                       ),
-                      const Text(
+                      Text(
                         'Upload Audio',
                         textAlign: TextAlign.center,
                         maxLines: 1,
@@ -203,7 +202,7 @@ class _AddMemoryState extends State<AddMemory> {
                           color: Colors.grey,
                         ),
                       ),
-                      const SizedBox(
+                      SizedBox(
                         height: 30,
                       ),
                     ]),
@@ -212,7 +211,7 @@ class _AddMemoryState extends State<AddMemory> {
               ),
             ],
           ),
-          SizedBox(height: 25),
+          const SizedBox(height: 25),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

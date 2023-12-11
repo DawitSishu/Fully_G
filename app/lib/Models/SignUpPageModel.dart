@@ -25,19 +25,19 @@ class SignUpData {
 
   printAndGetData() {
     print({
-      "Full Name": this.full_name,
-      "Nick Name": this.nick_name,
-      "Phone Number": this.phone_number,
-      "Gender": this.gender,
-      "password": this.password,
+      "Full Name": full_name,
+      "Nick Name": nick_name,
+      "Phone Number": phone_number,
+      "Gender": gender,
+      "password": password,
     });
 
     return {
-      "full_name": this.full_name,
-      "nick_name": this.nick_name,
-      "phone": this.phone_number,
-      "gender": this.gender,
-      "password": this.password
+      "full_name": full_name,
+      "nick_name": nick_name,
+      "phone": phone_number,
+      "gender": gender,
+      "password": password
     };
   }
 }

@@ -234,7 +234,7 @@ class MemoryCard extends StatelessWidget {
   final String? memoryText;
   final String? desc;
 
-  MemoryCard({
+  const MemoryCard({super.key, 
     required this.imageUrl,
     required this.memoryText,
     required this.desc,
@@ -255,7 +255,7 @@ class MemoryCard extends StatelessWidget {
             child: Container(
               width: double.infinity,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.vertical(top: Radius.circular(15.0)),
+                borderRadius: const BorderRadius.vertical(top: Radius.circular(15.0)),
                 image: DecorationImage(
                   image: AssetImage(imageUrl!),
                   fit: BoxFit.cover,
@@ -270,18 +270,18 @@ class MemoryCard extends StatelessWidget {
               children: [
                 Text(
                   memoryText ?? '',
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18.0,
                     fontWeight: FontWeight.bold,
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 8, // Adjust this spacing as needed
                 ),
                 Text(
                   desc ?? '',
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 16.0,
                     color: Colors.grey,
                     overflow: TextOverflow.ellipsis,
@@ -323,7 +323,7 @@ void successSnackbar(BuildContext context,
     SnackBar(
       behavior: SnackBarBehavior.floating,
       margin: const EdgeInsets.fromLTRB(35, 5, 35, 25),
-      backgroundColor: Color.fromARGB(255, 75, 199, 44),
+      backgroundColor: const Color.fromARGB(255, 75, 199, 44),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
       ),
@@ -351,13 +351,13 @@ Future showConfirmationDialog(
             onPressed: () {
               Navigator.of(context).pop(true); // User confirmed
             },
-            child: Text('Yes'),
+            child: const Text('Yes'),
           ),
           TextButton(
             onPressed: () {
               Navigator.of(context).pop(false); // User canceled
             },
-            child: Text('No'),
+            child: const Text('No'),
           ),
         ],
       );
@@ -422,7 +422,7 @@ class _CustomButtonState extends State<CustomButton> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    margin: EdgeInsets.only(right: 5),
+                    margin: const EdgeInsets.only(right: 5),
                     child: loading
                         ? LoadingAnimationWidget.threeRotatingDots(
                             color: Colors.white, size: 15)
@@ -430,7 +430,7 @@ class _CustomButtonState extends State<CustomButton> {
                   ),
                   Text(
                     widget.label,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontWeight: FontWeight.w700,
                       fontSize: 18,
                     ),

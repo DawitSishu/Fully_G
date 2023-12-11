@@ -96,7 +96,7 @@ class _PaymentPageState extends State<PaymentPage> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              WidgetSpace(
+                              const WidgetSpace(
                                 space: 7,
                                 child: Text.rich(
                                   TextSpan(
@@ -116,7 +116,7 @@ class _PaymentPageState extends State<PaymentPage> {
                                   ),
                                 ),
                               ),
-                              WidgetSpace(
+                              const WidgetSpace(
                                 space: 7,
                                 child: Text.rich(
                                   TextSpan(
@@ -141,14 +141,14 @@ class _PaymentPageState extends State<PaymentPage> {
                                 child: Text.rich(
                                   TextSpan(
                                     text: 'Register Fee:\n',
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontWeight: FontWeight.normal,
                                     ),
                                     children: [
                                       TextSpan(
                                         text:
                                             '${widget.isProfessional ? 200 : 1000}ETB with one month free usage',
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 15,
                                         ),
@@ -158,7 +158,7 @@ class _PaymentPageState extends State<PaymentPage> {
                                 ),
                               ),
                               if (widget.isProfessional)
-                                WidgetSpace(
+                                const WidgetSpace(
                                   space: 15,
                                   child: Text.rich(
                                     TextSpan(
@@ -237,7 +237,7 @@ class _PaymentPageState extends State<PaymentPage> {
                           child: InputBox(
                             inputLabel: 'Transaction ID',
                             placeHolder: 'Transaction ID',
-                            icon: Icon(Icons.monetization_on),
+                            icon: const Icon(Icons.monetization_on),
                             update: (value) {
                               transactionID = value;
                               print(transactionID);

@@ -4,6 +4,8 @@ import 'package:Yene/util/widgets.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -25,8 +27,8 @@ class _LoginPageState extends State<LoginPage> {
           Center(
             child: SingleChildScrollView(
               child: Container(
-                margin: EdgeInsets.symmetric(horizontal: 20),
-                padding: EdgeInsets.all(20),
+                margin: const EdgeInsets.symmetric(horizontal: 20),
+                padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   boxShadow: [
@@ -34,7 +36,7 @@ class _LoginPageState extends State<LoginPage> {
                       color: Colors.grey.withOpacity(0.5),
                       spreadRadius: 5,
                       blurRadius: 7,
-                      offset: Offset(0, 3),
+                      offset: const Offset(0, 3),
                     ),
                   ],
                   borderRadius: BorderRadius.circular(20),
@@ -42,7 +44,7 @@ class _LoginPageState extends State<LoginPage> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    Text(
+                    const Text(
                       'Welcome Back!',
                       style: TextStyle(
                         fontSize: 30,
@@ -50,27 +52,27 @@ class _LoginPageState extends State<LoginPage> {
                         color: Color.fromARGB(255, 116, 59, 107),
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     InputBox(
                       inputLabel: 'Phone Number',
-                      icon: Icon(Icons.person),
+                      icon: const Icon(Icons.person),
                       placeHolder: '09 *******',
                       isPhone: true,
                       update: (value) {
                         data.phone = value;
                       },
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     InputBox(
                       inputLabel: 'Password',
-                      icon: Icon(Icons.lock),
+                      icon: const Icon(Icons.lock),
                       placeHolder: '*********',
                       isPassword: true,
                       update: (value) {
                         data.password = value;
                       },
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     CustomButton(
                       label: 'Log In',
                       onPressed: () async {
@@ -91,7 +93,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     TextButton(
                       onPressed: () {},
-                      child: Text(
+                      child: const Text(
                         'Forgot Password?',
                         style: TextStyle(
                           color: Color.fromARGB(255, 173, 88, 161),
@@ -101,7 +103,7 @@ class _LoginPageState extends State<LoginPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Text("Don't have an account?"),
+                        const Text("Don't have an account?"),
                         TextButton(
                           onPressed: () async {
                             await Navigator.popAndPushNamed(
@@ -109,7 +111,7 @@ class _LoginPageState extends State<LoginPage> {
                               'signup',
                             );
                           },
-                          child: Text(
+                          child: const Text(
                             'Sign Up',
                             style: TextStyle(
                               color: Color.fromARGB(255, 173, 88, 161),

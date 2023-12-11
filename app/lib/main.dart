@@ -26,12 +26,12 @@ void main() async {
     initialRoute: '/',
     debugShowCheckedModeBanner: false,
     routes: {
-      '/': (context) => OnboardingScreen(),
-      'login': (context) => LoginPage(),
-      'signup': (context) => SignUpPage(),
-      'uploadMemory': (context) => AddMemory(),
-      'main': (context) => CreatorMainPage(),
-      'payment': (context) => PaymentPage(),
+      '/': (context) => const OnboardingScreen(),
+      'login': (context) => const LoginPage(),
+      'signup': (context) => const SignUpPage(),
+      'uploadMemory': (context) => const AddMemory(),
+      'main': (context) => const CreatorMainPage(),
+      'payment': (context) => const PaymentPage(),
     },
   ));
 }

@@ -37,7 +37,7 @@ class _HomePageState extends State<HomePage> {
           child: AppBar(
             backgroundColor: Colors.white,
             elevation: 3,
-            title: Text(
+            title: const Text(
               'Welcome Nick_Name',
               style: TextStyle(
                 fontWeight: FontWeight.w600,
@@ -58,7 +58,7 @@ class _HomePageState extends State<HomePage> {
                   boxShadow: [
                     BoxShadow(
                       color: Colors.grey.withOpacity(0.3),
-                      offset: Offset(0, 4),
+                      offset: const Offset(0, 4),
                       blurRadius: 8,
                       spreadRadius: 0,
                     ),
@@ -69,13 +69,13 @@ class _HomePageState extends State<HomePage> {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      BeatingHeart(),
-                      SizedBox(width: 20),
+                      const BeatingHeart(),
+                      const SizedBox(width: 20),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
+                            const Text(
                               //partner and paired up with
                               'Hand in hand, hearts aligned,Love\'s journey, beautifully designed',
                               style: TextStyle(
@@ -85,14 +85,14 @@ class _HomePageState extends State<HomePage> {
                                 fontFamily: 'Roboto',
                               ),
                             ),
-                            SizedBox(height: 12),
+                            const SizedBox(height: 12),
                             Container(
                               height: 1,
                               color: Colors.grey[300],
                               width: double.infinity,
                             ),
-                            SizedBox(height: 12),
-                            Text(
+                            const SizedBox(height: 12),
+                            const Text(
                               'Embrace the beauty of love!',
                               style: TextStyle(
                                 fontSize: 16,
@@ -108,11 +108,11 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-              SizedBox(height: 20),
-              SizedBox(
+              const SizedBox(height: 20),
+              const SizedBox(
                 height: 10,
               ),
-              Text(
+              const Text(
                 "My Memories",
                 style: TextStyle(
                   fontSize: 26,
@@ -120,16 +120,16 @@ class _HomePageState extends State<HomePage> {
                   color: Color.fromARGB(255, 116, 59, 107),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 1,
                   mainAxisSpacing: 8.0,
                   crossAxisSpacing: 8.0,
                 ),
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: memories.length,
                 itemBuilder: (context, index) {
