@@ -66,4 +66,29 @@ Future signUp(bodyData) async {
 }
 
 //to be tested later dave
-Future LogIn() async {}
+Future LogIn(bodyData) async {
+  try {
+    final url = Uri.http('192.168.42.56:5000', '/api/users/login');
+
+    final Map<String, String> headers = {
+      'Content-Type': 'application/json',
+    };
+    final response = await http.post(
+      url,
+      headers: headers,
+      body: json.encode(bodyData),
+    );
+    final data = json.decode(response.body);
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      return {"success": true, "data": data};
+    } else {
+      return {"success": false, "data": data};
+    }
+  } catch (e) {
+    // TODO
+    return {
+      "success": false,
+      "data": {"message": "please try again"}
+    };
+  }
+}
