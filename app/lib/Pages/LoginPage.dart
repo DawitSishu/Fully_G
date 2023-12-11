@@ -76,6 +76,10 @@ class _LoginPageState extends State<LoginPage> {
                     CustomButton(
                       label: 'Log In',
                       onPressed: () async {
+                        if (data.checkSignInData()) {
+                          showSnackbar(context);
+                          return;
+                        }
                         final response = await LogIn(data.printAndGetData());
                         if (response['success'] == true) {
                           successSnackbar(context,
