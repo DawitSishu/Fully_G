@@ -1,4 +1,5 @@
 import 'package:Yene/Models/SignInPageModel.dart';
+import 'package:Yene/services/AuthServices.dart';
 import 'package:Yene/util/widgets.dart';
 import 'package:flutter/material.dart';
 
@@ -72,7 +73,21 @@ class _LoginPageState extends State<LoginPage> {
                     SizedBox(height: 20),
                     CustomButton(
                       label: 'Log In',
-                      onPressed: () async {},
+                      onPressed: () async {
+                        final response = await LogIn(data.printAndGetData());
+                        if (response['success'] == true) {
+                          successSnackbar(context,
+                              text: response['data']['message']);
+                          await Navigator.popAndPushNamed(
+                            context,
+                            'main',
+                          );
+                        } else {
+                          showSnackbar(context,
+                              text: response['data']['message']);
+                          return;
+                        }
+                      },
                     ),
                     TextButton(
                       onPressed: () {},
@@ -89,7 +104,6 @@ class _LoginPageState extends State<LoginPage> {
                         Text("Don't have an account?"),
                         TextButton(
                           onPressed: () async {
-                            // Navigate to the registration page
                             await Navigator.popAndPushNamed(
                               context,
                               'signup',
