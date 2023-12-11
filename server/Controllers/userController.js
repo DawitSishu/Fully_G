@@ -69,7 +69,7 @@ export const signUp = asyncHandler(async (req, res) => {
     throw err;
   }
 
-  if (!/^0\d{9}$/.test(phone)) {
+  if (!/\+251\d{9}$/.test(phone)) {
     const err = new Error("Invalid Phone Number");
     err.statusCode = 400;
     throw err;
@@ -91,6 +91,7 @@ export const signUp = asyncHandler(async (req, res) => {
     "INSERT INTO users (love_id,phone_number, password,full_name, nick_name, gender) VALUES (?,?,?,?,?,?)",
     [love_id, phone, hashedPassword, full_name, nick_name, gender]
   );
+  console.log(final);
 
   res.status(201).json({
     message: "User Registration Success",

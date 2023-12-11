@@ -144,7 +144,6 @@ class _SignUpPageState extends State<SignUpPage> {
                         }
                         if (data.checkSignUpData()) {
                           showSnackbar(context);
-                          print("fill all fields");
                           data.printAndGetData();
                           return;
                         } else {
