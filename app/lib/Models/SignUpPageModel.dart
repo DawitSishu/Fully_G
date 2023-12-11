@@ -23,6 +23,17 @@ class SignUpData {
         phone_number.isEmpty;
   }
 
+  convertPhone() {
+    if (phone_number.startsWith('0')) {
+      phone_number = '+251${phone_number.substring(1)}';
+      return;
+    }
+    if (phone_number.startsWith('2')) {
+      phone_number = '+$phone_number';
+      return;
+    }
+  }
+
   printAndGetData() {
     print({
       "Full Name": full_name,
@@ -32,6 +43,7 @@ class SignUpData {
       "password": password,
     });
 
+    convertPhone();
     return {
       "full_name": full_name,
       "nick_name": nick_name,

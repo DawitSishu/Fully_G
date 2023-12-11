@@ -58,7 +58,7 @@ void fetchData() async {
 Future signUp(bodyData) async {
   try {
     print(bodyData);
-    final url = Uri.http('192.168.42.56:5000', '/api/users/signup');
+    final url = Uri.http('192.168.159.56:5000', '/api/users/signup');
 
     final Map<String, String> headers = {
       'Content-Type': 'application/json',
@@ -88,7 +88,7 @@ Future signUp(bodyData) async {
 //to be tested later dave
 Future LogIn(bodyData) async {
   try {
-    final url = Uri.http('192.168.42.56:5000', '/api/users/login');
+    final url = Uri.http('192.168.159.56:5000', '/api/users/login');
 
     final Map<String, String> headers = {
       'Content-Type': 'application/json',
@@ -111,6 +111,7 @@ Future LogIn(bodyData) async {
     }
   } catch (e) {
     // TODO
+    print(e);
     return {
       "success": false,
       "data": {"message": "please try again"}
