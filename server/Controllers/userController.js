@@ -213,3 +213,23 @@ export const addId = asyncHandler(async (req, res) => {
     data: [],
   });
 });
+
+//@desc get user data
+//@route POST /api/users/me
+//@access private
+export const getUserInfo = asyncHandler(async (req, res) => {
+  const { id } = req.user;
+
+  const user = await pool.query("SELECT * from users WHERE id = ?", [id]);
+
+  if (!user || !user[0][0] || user[0][0].length <= 0) {
+    const err = new Error("User Not Found");
+    err.statusCode = 400;
+    throw err;
+  }
+
+  res.json({
+    message: "User Retrived Successfully",
+    data: user[0][0],
+  });
+});
