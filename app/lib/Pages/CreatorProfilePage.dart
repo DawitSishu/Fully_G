@@ -498,7 +498,7 @@ class UpdateProfile extends StatefulWidget {
 }
 
 class _UpdateProfileState extends State<UpdateProfile> {
-  String data = '';
+  Map<String, dynamic> data = {};
 
   Future<bool> _onWillPop() async {
     return await showDialog(
@@ -536,88 +536,108 @@ class _UpdateProfileState extends State<UpdateProfile> {
   }
 
   contentBox(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        shape: BoxShape.rectangle,
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: const [
-          BoxShadow(
-            color: Color.fromARGB(255, 116, 59, 107),
-            blurRadius: 10,
-            offset: Offset(0, 5),
-          ),
-        ],
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Text(
-            widget.buttonText,
-            style: const TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
+    return SingleChildScrollView(
+      child: Container(
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          shape: BoxShape.rectangle,
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: const [
+            BoxShadow(
+              color: Color.fromARGB(255, 116, 59, 107),
+              blurRadius: 10,
+              offset: Offset(0, 5),
             ),
-          ),
-          const SizedBox(height: 20),
-          InputBox(
-            inputLabel: "Full Name",
-            placeHolder: "Enter your Full Name",
-            update: (value) {
-              data = value;
-            },
-            icon: const Icon(Icons.person),
-          ),
-          const SizedBox(height: 20),
-          InputBox(
-            inputLabel: "Nick Name",
-            placeHolder: "Enter your Nick Name",
-            update: (value) {
-              data = value;
-            },
-            icon: const Icon(Icons.person_2_rounded),
-          ),
-          const SizedBox(height: 20),
-          InputBox(
-            inputLabel: "Phone Number",
-            placeHolder: "Enter your Phone Number",
-            update: (value) {
-              data = value;
-            },
-            icon: const Icon(Icons.phone),
-          ),
-          const SizedBox(height: 20),
-          InputBox(
-            inputLabel: "Password",
-            placeHolder: "Enter your new Password",
-            update: (value) {
-              data = value;
-            },
-            icon: const Icon(Icons.lock),
-          ),
-          const SizedBox(height: 20),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 30),
-              backgroundColor: const Color.fromARGB(255, 116, 59, 107),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(25.0),
+          ],
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Text(
+              widget.buttonText,
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
               ),
             ),
-            onPressed: () {
-              print(data);
-            },
-            child: const Text(
-              'Update',
-              style: TextStyle(
-                fontWeight: FontWeight.w700,
-                fontSize: 16,
-                color: Colors.white,
+            const SizedBox(height: 20),
+            InputBox(
+              inputLabel: "Full Name",
+              placeHolder: "Enter your Full Name",
+              update: (value) {
+                data['full_name'] = value;
+              },
+              icon: const Icon(Icons.person),
+            ),
+            const SizedBox(height: 20),
+            InputBox(
+              inputLabel: "Nick Name",
+              placeHolder: "Enter your Nick Name",
+              update: (value) {
+                data['nick_name'] = value;
+              },
+              icon: const Icon(Icons.person_2_rounded),
+            ),
+            const SizedBox(height: 20),
+            InputBox(
+              inputLabel: "Phone Number",
+              placeHolder: "Enter your Phone Number",
+              isPhone: true,
+              update: (value) {
+                if (value.startsWith('0')) {
+                  data['phone'] = '+251${value.substring(1)}';
+                } else if (value.startsWith('2')) {
+                  data['phone'] = '+$value';
+                } else if (value.startsWith('+2')) {
+                  data['phone'] = value;
+                } else {
+                  data['phone'] = '';
+                }
+              },
+              icon: const Icon(Icons.phone),
+            ),
+            const SizedBox(height: 20),
+            InputBox(
+              inputLabel: "Password",
+              placeHolder: "Enter your new Password",
+              update: (value) {
+                data['password'] = value;
+              },
+              icon: const Icon(Icons.lock),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 12, horizontal: 30),
+                backgroundColor: const Color.fromARGB(255, 116, 59, 107),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(25.0),
+                ),
+              ),
+              onPressed: () async {
+                print(data);
+                final response = await UpdatePro(data);
+                if (response['success'] == true) {
+                  successSnackbar(context, text: response['data']['message']);
+                  return;
+                } else {
+                  showSnackbar(context, text: response['data']['message']);
+                  return;
+                }
+              },
+              child: const Text(
+                'Update',
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 16,
+                  color: Colors.white,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

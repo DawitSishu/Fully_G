@@ -162,7 +162,7 @@ export const updateProfile = asyncHandler(async (req, res) => {
     throw err;
   }
 
-  if (!/^0\d{9}$/.test(phone)) {
+  if (!/\+251\d{9}$/.test(phone)) {
     const err = new Error("Invalid Phone Number");
     err.statusCode = 400;
     throw err;
