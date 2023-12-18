@@ -135,7 +135,7 @@ export const logIN = asyncHandler(async (req, res) => {
       ...user,
       password: "",
     },
-    "your-secret-key",
+    process.env.SECRET_KEY,
     { expiresIn: "1d" }
   );
 
