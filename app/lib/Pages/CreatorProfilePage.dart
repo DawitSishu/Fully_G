@@ -1,3 +1,4 @@
+import 'package:Yene/services/PersonalServices.dart';
 import 'package:Yene/util/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -10,302 +11,332 @@ class CreatorProfile extends StatefulWidget {
 }
 
 class _CreatorProfileState extends State<CreatorProfile> {
+  Map<String, dynamic> data = {};
+  bool isLoading = true;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    fetchData();
+  }
+
+  void fetchData() async {
+    final res = await getUserInfo();
+    if (res['success'] == true) {
+      data = res['data']['data'];
+      print(data);
+      setState(() {
+        isLoading = false;
+      });
+    } else {}
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Column(
-        children: [
-          Expanded(
-            child: Stack(
-              children: [
-                Container(
-                  height: 400,
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/images/profile.png'),
-                      fit: BoxFit.cover,
-                    ),
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(30.0),
-                      bottomRight: Radius.circular(30.0),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  top: 300,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  child: Container(
+    if (isLoading) {
+      return Scaffold(
+        backgroundColor: Colors.white,
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    } else {
+      return Scaffold(
+        backgroundColor: Colors.white,
+        body: Column(
+          children: [
+            Expanded(
+              child: Stack(
+                children: [
+                  Container(
+                    height: 400,
                     decoration: const BoxDecoration(
-                      color: Colors.white,
+                      image: DecorationImage(
+                        image: AssetImage('assets/images/profile.png'),
+                        fit: BoxFit.cover,
+                      ),
                       borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(30.0),
-                        topRight: Radius.circular(30.0),
+                        bottomLeft: Radius.circular(30.0),
+                        bottomRight: Radius.circular(30.0),
                       ),
                     ),
-                    child: ListView(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Padding(
-                              padding: EdgeInsets.fromLTRB(15.0, 0, 0, 15),
-                              child: CircleAvatar(
-                                radius: 30,
-                                backgroundColor:
-                                    Color.fromARGB(255, 116, 59, 107),
-                                child: Icon(
-                                  Icons.account_circle,
-                                  size: 60,
-                                  color: Colors.white,
+                  ),
+                  Positioned(
+                    top: 300,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(30.0),
+                          topRight: Radius.circular(30.0),
+                        ),
+                      ),
+                      child: ListView(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Padding(
+                                padding: EdgeInsets.fromLTRB(15.0, 0, 0, 15),
+                                child: CircleAvatar(
+                                  radius: 30,
+                                  backgroundColor:
+                                      Color.fromARGB(255, 116, 59, 107),
+                                  child: Icon(
+                                    Icons.account_circle,
+                                    size: 60,
+                                    color: Colors.white,
+                                  ),
                                 ),
                               ),
-                            ),
-                            // SizedBox(width: 20),
-                            const Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  children: [
-                                    Text(
-                                      "Full Name",
-                                      style: TextStyle(
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.bold,
+                              // SizedBox(width: 20),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Text(
+                                        "${data['full_name']}",
+                                        style: TextStyle(
+                                          fontSize: 25,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
-                                    ),
-                                    SizedBox(width: 5),
-                                  ],
-                                ),
-                                Text("Creating Memories Together"),
-                              ],
-                            ),
-                            IconButton(
-                              icon: const Icon(Icons.edit,
-                                  size: 35,
-                                  color: Color.fromARGB(255, 116, 59, 107)),
-                              onPressed: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return const UpdateProfile(
-                                        buttonText: "Update Your Profile");
-                                  },
-                                );
-                              },
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Column(
-                            children: <Widget>[
-                              const Row(
-                                children: <Widget>[
-                                  Icon(
-                                    Icons.person,
-                                    color: Color.fromARGB(255, 116, 59, 107),
-                                    size: 32,
+                                      SizedBox(width: 5),
+                                    ],
                                   ),
-                                  SizedBox(width: 10),
-                                  Text(
-                                    "nickname",
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
+                                  Text("Creating Memories Together"),
                                 ],
                               ),
-                              // Row(
-                              //   children: <Widget>[
-                              //     Icon(
-                              //       Icons.favorite,
-                              //       color: Colors.red,
-                              //       size: 32,
-                              //     ),
-                              //     SizedBox(width: 10),
-                              //     RichText(
-                              //       text: TextSpan(
-                              //         style: TextStyle(
-                              //           fontSize: 20,
-                              //           fontWeight: FontWeight.bold,
-                              //           color: Colors
-                              //               .black, // You can customize the text color
-                              //         ),
-                              //         children: <TextSpan>[
-                              //           TextSpan(text: "My Love: "),
-                              //           TextSpan(
-                              //             text: "babe",
-                              //             style: TextStyle(
-                              //               color: Color.fromARGB(255, 116, 59,
-                              //                   107), // Customize the text color
-                              //             ),
-                              //           ),
-                              //         ],
-                              //       ),
-                              //     )
-                              //   ],
-                              // ),
-                              const SizedBox(height: 10),
-                              const Row(
-                                children: <Widget>[
-                                  Icon(
-                                    Icons.phone,
-                                    color: Color.fromARGB(255, 116, 59, 107),
-                                    size: 32,
-                                  ),
-                                  SizedBox(width: 10),
-                                  Text(
-                                    "+251 9********",
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                ],
+                              IconButton(
+                                icon: const Icon(Icons.edit,
+                                    size: 35,
+                                    color: Color.fromARGB(255, 116, 59, 107)),
+                                onPressed: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return const UpdateProfile(
+                                          buttonText: "Update Your Profile");
+                                    },
+                                  );
+                                },
                               ),
-                              const SizedBox(height: 10),
-                              Row(
-                                children: <Widget>[
-                                  const Icon(
-                                    Icons.favorite,
-                                    color: Colors.red,
-                                    size: 32,
-                                  ),
-                                  const SizedBox(width: 10),
-                                  RichText(
-                                    text: const TextSpan(
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(
+                              children: <Widget>[
+                                Row(
+                                  children: <Widget>[
+                                    Icon(
+                                      Icons.person,
+                                      color: Color.fromARGB(255, 116, 59, 107),
+                                      size: 32,
+                                    ),
+                                    SizedBox(width: 10),
+                                    Text(
+                                      "${data['nick_name']}",
                                       style: TextStyle(
                                         fontSize: 20,
                                         fontWeight: FontWeight.bold,
-                                        color: Colors
-                                            .black, // You can customize the text color
                                       ),
-                                      children: <TextSpan>[
-                                        TextSpan(text: "Love ID: "),
-                                        TextSpan(
-                                          text: "12348",
-                                          style: TextStyle(
-                                              color: Color.fromARGB(
-                                                  255, 116, 59, 107)),
-                                        ),
-                                      ],
                                     ),
-                                  )
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.all(16.0),
-                          child: Row(
-                            children: <Widget>[
-                              Icon(
-                                Icons.show_chart,
-                                color: Color.fromARGB(255, 116, 59, 107),
-                                size: 32,
-                              ),
-                              SizedBox(width: 10),
-                              Text(
-                                "Love percentage",
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
+                                  ],
                                 ),
-                              ),
-                              SizedBox(width: 10),
-                              StatsCircularIndicator(percent: 75),
-                            ],
+                                // Row(
+                                //   children: <Widget>[
+                                //     Icon(
+                                //       Icons.favorite,
+                                //       color: Colors.red,
+                                //       size: 32,
+                                //     ),
+                                //     SizedBox(width: 10),
+                                //     RichText(
+                                //       text: TextSpan(
+                                //         style: TextStyle(
+                                //           fontSize: 20,
+                                //           fontWeight: FontWeight.bold,
+                                //           color: Colors
+                                //               .black, // You can customize the text color
+                                //         ),
+                                //         children: <TextSpan>[
+                                //           TextSpan(text: "My Love: "),
+                                //           TextSpan(
+                                //             text: "babe",
+                                //             style: TextStyle(
+                                //               color: Color.fromARGB(255, 116, 59,
+                                //                   107), // Customize the text color
+                                //             ),
+                                //           ),
+                                //         ],
+                                //       ),
+                                //     )
+                                //   ],
+                                // ),
+                                const SizedBox(height: 10),
+                                Row(
+                                  children: <Widget>[
+                                    Icon(
+                                      Icons.phone,
+                                      color: Color.fromARGB(255, 116, 59, 107),
+                                      size: 32,
+                                    ),
+                                    SizedBox(width: 10),
+                                    Text(
+                                      "${data['phone_number']}",
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 10),
+                                Row(
+                                  children: <Widget>[
+                                    const Icon(
+                                      Icons.favorite,
+                                      color: Colors.red,
+                                      size: 32,
+                                    ),
+                                    const SizedBox(width: 10),
+                                    RichText(
+                                      text: TextSpan(
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors
+                                              .black, // You can customize the text color
+                                        ),
+                                        children: <TextSpan>[
+                                          TextSpan(text: "Love ID: "),
+                                          TextSpan(
+                                            text: "${data['love_id']}",
+                                            style: TextStyle(
+                                                color: Color.fromARGB(
+                                                    255, 116, 59, 107)),
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-      floatingActionButton: InkWell(
-        onTap: () async {},
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            GestureDetector(
-              onTap: () {
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    return const AlertForm(buttonText: "Insert Partner's Love ID");
-                  },
-                );
-              },
-              child: Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
-                    child: IconButton(
-                      color: Colors.red,
-                      padding: const EdgeInsets.all(0),
-                      iconSize: 30,
-                      alignment: Alignment.centerRight,
-                      onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return const AlertForm(
-                                buttonText: "Insert Partner's Love ID");
-                          },
-                        );
-                      },
-                      icon: const FaIcon(
-                        FontAwesomeIcons.heartCirclePlus,
+                          const Padding(
+                            padding: EdgeInsets.all(16.0),
+                            child: Row(
+                              children: <Widget>[
+                                Icon(
+                                  Icons.show_chart,
+                                  color: Color.fromARGB(255, 116, 59, 107),
+                                  size: 32,
+                                ),
+                                SizedBox(width: 10),
+                                Text(
+                                  "Love percentage",
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                SizedBox(width: 10),
+                                StatsCircularIndicator(percent: 75),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  const Text(
-                    "ADD ID",
-                    style: TextStyle(
-                      fontSize: 18,
-                      // fontWeight: FontWeight.bold,
-                      // color: Colors.black,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            GestureDetector(
-              onTap: () {
-                print('logout');
-              },
-              child: Row(
-                children: [
-                  IconButton(
-                    color: const Color.fromARGB(255, 116, 59, 107),
-                    padding: const EdgeInsets.all(0),
-                    iconSize: 30,
-                    alignment: Alignment.centerRight,
-                    onPressed: () {},
-                    icon: const Icon(Icons.logout_outlined),
-                  ),
-                  const Text('Log out'),
                 ],
               ),
             ),
           ],
         ),
-      ),
-    );
+        floatingActionButton: InkWell(
+          onTap: () async {},
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return const AlertForm(
+                          buttonText: "Insert Partner's Love ID");
+                    },
+                  );
+                },
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
+                      child: IconButton(
+                        color: Colors.red,
+                        padding: const EdgeInsets.all(0),
+                        iconSize: 30,
+                        alignment: Alignment.centerRight,
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return const AlertForm(
+                                  buttonText: "Insert Partner's Love ID");
+                            },
+                          );
+                        },
+                        icon: const FaIcon(
+                          FontAwesomeIcons.heartCirclePlus,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    const Text(
+                      "ADD ID",
+                      style: TextStyle(
+                        fontSize: 18,
+                        // fontWeight: FontWeight.bold,
+                        // color: Colors.black,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  print('logout');
+                },
+                child: Row(
+                  children: [
+                    IconButton(
+                      color: const Color.fromARGB(255, 116, 59, 107),
+                      padding: const EdgeInsets.all(0),
+                      iconSize: 30,
+                      alignment: Alignment.centerRight,
+                      onPressed: () {},
+                      icon: const Icon(Icons.logout_outlined),
+                    ),
+                    const Text('Log out'),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
   }
 }
 
@@ -362,7 +393,8 @@ class _AlertFormState extends State<AlertForm> {
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Are you sure?'),
-        content: const Text('Do you want to leave Inserting Partner\'s Love ID?'),
+        content:
+            const Text('Do you want to leave Inserting Partner\'s Love ID?'),
         actions: <Widget>[
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
@@ -429,7 +461,8 @@ class _AlertFormState extends State<AlertForm> {
           const SizedBox(height: 20),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
-              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 30), backgroundColor: const Color.fromARGB(255, 116, 59, 107),
+              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 30),
+              backgroundColor: const Color.fromARGB(255, 116, 59, 107),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(25.0),
               ),
@@ -566,7 +599,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
           const SizedBox(height: 20),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
-              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 30), backgroundColor: const Color.fromARGB(255, 116, 59, 107),
+              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 30),
+              backgroundColor: const Color.fromARGB(255, 116, 59, 107),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(25.0),
               ),

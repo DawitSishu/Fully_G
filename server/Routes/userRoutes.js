@@ -4,6 +4,7 @@ import {
   logIN,
   updateProfile,
   addId,
+  getUserInfo,
 } from "../Controllers/userController.js";
 import userAuthChecker from "../MiddleWares/UserAuthChecker.js";
 
@@ -20,5 +21,8 @@ userRouter.put("/updateProfile", userAuthChecker, updateProfile);
 
 //add the partner's love id
 userRouter.put("/addId", userAuthChecker, addId);
+
+//getUser info
+userRouter.get("/me", userAuthChecker, getUserInfo);
 
 export default userRouter;
