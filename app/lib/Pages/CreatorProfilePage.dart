@@ -21,6 +21,9 @@ class _CreatorProfileState extends State<CreatorProfile> {
   }
 
   void fetchData() async {
+    setState(() {
+      isLoading = true;
+    });
     final res = await getUserInfo();
     if (res['success'] == true) {
       data = res['data']['data'];
@@ -119,8 +122,9 @@ class _CreatorProfileState extends State<CreatorProfile> {
                                   showDialog(
                                     context: context,
                                     builder: (context) {
-                                      return const UpdateProfile(
-                                          buttonText: "Update Your Profile");
+                                      return UpdateProfile(
+                                          buttonText: "Update Your Profile",
+                                          onProfileUpdated: fetchData);
                                     },
                                   );
                                 },
@@ -487,10 +491,12 @@ class _AlertFormState extends State<AlertForm> {
 
 class UpdateProfile extends StatefulWidget {
   final String buttonText;
+  final Function()? onProfileUpdated;
 
   const UpdateProfile({
     Key? key,
     required this.buttonText,
+    this.onProfileUpdated,
   }) : super(key: key);
 
   @override
@@ -617,14 +623,16 @@ class _UpdateProfileState extends State<UpdateProfile> {
                 ),
               ),
               onPressed: () async {
-                print(data);
                 final response = await UpdatePro(data);
                 if (response['success'] == true) {
+                  Navigator.of(context).pop();
                   successSnackbar(context, text: response['data']['message']);
-                  return;
+                  if (widget.onProfileUpdated != null) {
+                    widget.onProfileUpdated!(); // Call the callback function
+                  }
                 } else {
+                  Navigator.of(context).pop();
                   showSnackbar(context, text: response['data']['message']);
-                  return;
                 }
               },
               child: const Text(
