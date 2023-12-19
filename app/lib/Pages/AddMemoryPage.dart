@@ -1,4 +1,13 @@
+import 'dart:async';
+import 'dart:io';
+
+import 'package:Yene/services/UploaderServices.dart';
+import 'package:Yene/util/widgets.dart';
+import 'package:audioplayers/audioplayers.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_sound/flutter_sound.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class AddMemory extends StatefulWidget {
   const AddMemory({super.key});
@@ -8,6 +17,69 @@ class AddMemory extends StatefulWidget {
 }
 
 class _AddMemoryState extends State<AddMemory> {
+  PlatformFile? img;
+  String imgName = '';
+  PlatformFile? aud;
+  String audName = '';
+  Map<dynamic, dynamic> data = {};
+  final recorder = FlutterSoundRecorder();
+  bool ready = false;
+  bool isRecording = false;
+
+  DateTime? startTime;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    initRecorder();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    recorder.closeRecorder();
+    super.dispose();
+  }
+
+  Future initRecorder() async {
+    //not added permission for ios
+    final status = await Permission.microphone.request();
+
+    if (status != PermissionStatus.granted) {
+      showSnackbar(context, text: "Microphone permission not granted!!");
+      return;
+    }
+
+    await recorder.openRecorder();
+    ready = true;
+    // await recorder.startRecorder();
+    recorder.setSubscriptionDuration(const Duration(microseconds: 500));
+  }
+
+  // Future stop() async {
+  //   if (!ready) return;
+  //   final path = await recorder.stopRecorder();
+  //   final audioFile = File(path!); // here na ezi
+  //   print("audio: $audioFile ");
+  // }
+  final AudioPlayer _audioPlayer = AudioPlayer();
+  Future<File?> stop() async {
+    if (!ready) return null;
+
+    final path = await recorder.stopRecorder();
+    if (path == null) return null;
+
+    final audioFile = File(path);
+    print("audio: $audioFile ");
+
+    return audioFile;
+  }
+
+  Future record() async {
+    if (!ready) return;
+    await recorder.startRecorder(toFile: 'audio');
+  }
+
   @override
   Widget build(BuildContext context) {
     final cardWidth = (MediaQuery.of(context).size.width - 40) / 2 - 10;
@@ -40,7 +112,32 @@ class _AddMemoryState extends State<AddMemory> {
           ),
           InkWell(
             // borderRadius: BorderRadius.circular(5),
-            onTap: () async {},
+            onTap: () async {
+              final result = await FilePicker.platform.pickFiles(
+                type: FileType.custom,
+                allowedExtensions: ['jpg', 'jpeg'],
+              );
+              if (result != null) {
+                img = result.files.first;
+                int maxSizeInBytes = 5 * 1024 * 1024;
+                if (img!.size! <= maxSizeInBytes) {
+                  setState(() {
+                    imgName = img!.name;
+                  });
+                } else {
+                  showSnackbar(context,
+                      text: "File size exceeds the limit of 5 MB");
+                  setState(() {
+                    imgName = '';
+                  });
+                }
+              } else {
+                setState(() {
+                  imgName = '';
+                });
+                return;
+              }
+            },
             child: Container(
               // color: Colors.grey,
               decoration: BoxDecoration(
@@ -62,10 +159,10 @@ class _AddMemoryState extends State<AddMemory> {
                     color: const Color.fromARGB(255, 116, 59, 107),
                     iconSize: 50,
                   ),
-                  const Padding(
+                  Padding(
                     padding: EdgeInsets.all(10),
                     child: Text(
-                      "Select Image",
+                      imgName.isEmpty ? "Select Image" : imgName,
                       style: TextStyle(
                         fontSize: 14,
                         color: Colors.grey,
@@ -89,12 +186,13 @@ class _AddMemoryState extends State<AddMemory> {
           const SizedBox(
             height: 10,
           ),
-          TextFormField(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(5),
-              ),
-            ),
+          InputBox(
+            inputLabel: '',
+            icon: const Icon(Icons.title),
+            placeHolder: 'Add Gift Title',
+            update: (value) {
+              data['title'] = value;
+            },
           ),
           const SizedBox(
             height: 20,
@@ -109,12 +207,13 @@ class _AddMemoryState extends State<AddMemory> {
           const SizedBox(
             height: 10,
           ),
-          TextFormField(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(5),
-              ),
-            ),
+          InputBox(
+            inputLabel: '',
+            icon: const Icon(Icons.description),
+            placeHolder: 'Add Gift Description',
+            update: (value) {
+              data['description'] = value;
+            },
           ),
           const SizedBox(height: 20),
           Row(
@@ -125,29 +224,48 @@ class _AddMemoryState extends State<AddMemory> {
                 child: OutlinedButton(
                   style: OutlinedButton.styleFrom(
                     side: const BorderSide(
-                        width: 2,
-                        color: Color.fromRGBO(239, 239, 239, 1)),
+                        width: 2, color: Color.fromRGBO(239, 239, 239, 1)),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
                     backgroundColor: Colors.grey.shade100,
                   ),
-                  onPressed: () {},
+                  onPressed: () async {
+                    if (recorder.isRecording) {
+                      File? audioFile = await stop();
+                      if (audioFile != null) {
+                        setState(() {
+                          aud = PlatformFile(
+                            name: 'Audio.mp3', // Change the name as needed
+                            size: audioFile.lengthSync(),
+                            path: audioFile.path,
+                          );
+                          audName = 'Audio.mp3'; // Update the name as needed
+                        });
+                        successSnackbar(context, text: "Audio Recorded!!");
+                      }
+                    } else {
+                      await record();
+                    }
+                    setState(() {
+                      isRecording = !isRecording;
+                    });
+                  },
                   child: Container(
                     padding: const EdgeInsets.fromLTRB(10, 20, 10, 20),
-                    child: const Column(
+                    child: Column(
                       children: [
                         SizedBox(
                           height: 20,
                         ),
                         Icon(
-                          Icons.mic,
+                          isRecording ? Icons.stop : Icons.mic,
                           size: 48, // Adjust the size as needed
                           color: Color.fromARGB(
                               255, 100, 58, 97), // Adjust the color as needed
                         ),
                         Text(
-                          'Record Audio',
+                          isRecording ? 'Stop Recording' : 'Record Audio',
                           textAlign: TextAlign.center,
                           maxLines: 2,
                           softWrap: false,
@@ -161,6 +279,27 @@ class _AddMemoryState extends State<AddMemory> {
                         SizedBox(
                           height: 20,
                         ),
+                        // StreamBuilder<bool>(
+                        //     stream: Stream.periodic(
+                        //         Duration(seconds: 1), (_) => isRecording),
+                        //     builder: (context, snapshot) {
+                        //       final bool recording = snapshot.data ?? false;
+
+                        //       if (recording && startTime != null) {
+                        //         final duration =
+                        //             DateTime.now().difference(startTime!);
+                        //         int minutes = duration.inMinutes;
+                        //         int seconds = duration.inSeconds % 60;
+
+                        //         String minutesStr =
+                        //             minutes < 10 ? '0$minutes' : '$minutes';
+                        //         String secondsStr =
+                        //             seconds < 10 ? '0$seconds' : '$seconds';
+                        //         return Text('$minutesStr:$secondsStr');
+                        //       } else {
+                        //         return Text('00:00');
+                        //       }
+                        //     }),
                       ],
                     ),
                   ),
@@ -171,16 +310,41 @@ class _AddMemoryState extends State<AddMemory> {
                 child: OutlinedButton(
                   style: OutlinedButton.styleFrom(
                       side: const BorderSide(
-                          width: 2,
-                          color: Color.fromRGBO(239, 239, 239, 1)),
+                          width: 2, color: Color.fromRGBO(239, 239, 239, 1)),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
                       ),
                       backgroundColor: Colors.grey.shade100),
-                  onPressed: () {},
+                  onPressed: () async {
+                    final result = await FilePicker.platform.pickFiles(
+                      type: FileType.custom,
+                      allowedExtensions: ['mp3', 'wav', 'ogg', 'aac'],
+                    );
+
+                    if (result != null) {
+                      aud = result.files.first;
+                      int maxSizeInBytes = 10 * 1024 * 1024;
+                      if (aud!.size! <= maxSizeInBytes) {
+                        setState(() {
+                          audName = aud!.name;
+                        });
+                      } else {
+                        showSnackbar(context,
+                            text: "File size exceeds the limit of 10 MB");
+                        setState(() {
+                          audName = '';
+                        });
+                      }
+                    } else {
+                      setState(() {
+                        audName = '';
+                      });
+                      return;
+                    }
+                  },
                   child: Container(
                     padding: const EdgeInsets.fromLTRB(10, 20, 10, 20),
-                    child: const Column(children: [
+                    child: Column(children: [
                       SizedBox(
                         height: 20,
                       ),
@@ -191,7 +355,7 @@ class _AddMemoryState extends State<AddMemory> {
                             255, 100, 58, 97), // Adjust the color as needed
                       ),
                       Text(
-                        'Upload Audio',
+                        audName.isEmpty ? 'Upload Audio' : audName,
                         textAlign: TextAlign.center,
                         maxLines: 1,
                         softWrap: false,
@@ -222,7 +386,22 @@ class _AddMemoryState extends State<AddMemory> {
                     borderRadius: BorderRadius.circular(25.0),
                   ),
                 ),
-                onPressed: () async {},
+                onPressed: () async {
+                  final res = await uploadImageAndAudio(
+                    imageFile: File(img!.path!),
+                    imageName: imgName,
+                    audioFile: File(aud!.path!),
+                    audioName: audName,
+                  );
+                  final res2 = await createGift(data);
+                  print("res $res");
+                  print("res2 $res2");
+                  if (res['success'] == true && res2['success'] == true) {
+                    successSnackbar(context, text: res2['data']['message']);
+                  } else {
+                    showSnackbar(context, text: res2['data']['message']);
+                  }
+                },
                 child: Ink(
                   decoration: BoxDecoration(
                     gradient: const LinearGradient(
