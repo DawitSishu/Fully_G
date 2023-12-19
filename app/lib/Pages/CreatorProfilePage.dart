@@ -27,7 +27,6 @@ class _CreatorProfileState extends State<CreatorProfile> {
     final res = await getUserInfo();
     if (res['success'] == true) {
       data = res['data']['data'];
-      print(data);
       setState(() {
         isLoading = false;
       });
@@ -271,53 +270,54 @@ class _CreatorProfileState extends State<CreatorProfile> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              GestureDetector(
-                onTap: () {
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return const AlertForm(
-                          buttonText: "Insert Partner's Love ID");
-                    },
-                  );
-                },
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
-                      child: IconButton(
-                        color: Colors.red,
-                        padding: const EdgeInsets.all(0),
-                        iconSize: 30,
-                        alignment: Alignment.centerRight,
-                        onPressed: () {
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return const AlertForm(
-                                  buttonText: "Insert Partner's Love ID");
-                            },
-                          );
-                        },
-                        icon: const FaIcon(
-                          FontAwesomeIcons.heartCirclePlus,
+              if (data['partner_id'] == null)
+                GestureDetector(
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return const AlertForm(
+                            buttonText: "Insert Partner's Love ID");
+                      },
+                    );
+                  },
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
+                        child: IconButton(
+                          color: Colors.red,
+                          padding: const EdgeInsets.all(0),
+                          iconSize: 30,
+                          alignment: Alignment.centerRight,
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return const AlertForm(
+                                    buttonText: "Insert Partner's Love ID");
+                              },
+                            );
+                          },
+                          icon: const FaIcon(
+                            FontAwesomeIcons.heartCirclePlus,
+                          ),
                         ),
                       ),
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    const Text(
-                      "ADD ID",
-                      style: TextStyle(
-                        fontSize: 18,
-                        // fontWeight: FontWeight.bold,
-                        // color: Colors.black,
+                      const SizedBox(
+                        width: 5,
                       ),
-                    ),
-                  ],
+                      const Text(
+                        "ADD ID",
+                        style: TextStyle(
+                          fontSize: 18,
+                          // fontWeight: FontWeight.bold,
+                          // color: Colors.black,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
               GestureDetector(
                 onTap: () {
                   print('logout');
@@ -471,8 +471,15 @@ class _AlertFormState extends State<AlertForm> {
                 borderRadius: BorderRadius.circular(25.0),
               ),
             ),
-            onPressed: () {
-              print(data);
+            onPressed: () async {
+              final response = await AddLoveId(data);
+              if (response['success'] == true) {
+                Navigator.of(context).pop();
+                successSnackbar(context, text: response['data']['message']);
+              } else {
+                Navigator.of(context).pop();
+                showSnackbar(context, text: response['data']['message']);
+              }
             },
             child: const Text(
               'Submit',
