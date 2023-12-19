@@ -9,7 +9,6 @@ export const uploadFile = asyncHandler(async (req, res) => {
   const fileName = req.file.originalname;
   const filePath = req.file.path;
   const isImage = req.body.isImage;
-
   if (!userId || !fileName || !filePath) {
     const err = new Error("Please Include Correct Fields and File-Types");
     err.statusCode = 400;
@@ -35,6 +34,7 @@ export const uploadFile = asyncHandler(async (req, res) => {
 export const addGift = asyncHandler(async (req, res) => {
   const { love_id, id } = req.user;
   const { title, description } = req.body;
+
 
   //use the id to find the id of images and audios or find other method
 
