@@ -471,8 +471,15 @@ class _AlertFormState extends State<AlertForm> {
                 borderRadius: BorderRadius.circular(25.0),
               ),
             ),
-            onPressed: () {
-              print(data);
+            onPressed: () async {
+              final response = await AddLoveId(data);
+              if (response['success'] == true) {
+                Navigator.of(context).pop();
+                successSnackbar(context, text: response['data']['message']);
+              } else {
+                Navigator.of(context).pop();
+                showSnackbar(context, text: response['data']['message']);
+              }
             },
             child: const Text(
               'Submit',
