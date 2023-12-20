@@ -154,7 +154,32 @@ class _AddMemoryState extends State<AddMemory> {
                   // Image.asset('assets/images/ImportPdf.png'),
 
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      final result = await FilePicker.platform.pickFiles(
+                        type: FileType.custom,
+                        allowedExtensions: ['jpg', 'jpeg'],
+                      );
+                      if (result != null) {
+                        img = result.files.first;
+                        int maxSizeInBytes = 5 * 1024 * 1024;
+                        if (img!.size! <= maxSizeInBytes) {
+                          setState(() {
+                            imgName = img!.name;
+                          });
+                        } else {
+                          showSnackbar(context,
+                              text: "File size exceeds the limit of 5 MB");
+                          setState(() {
+                            imgName = '';
+                          });
+                        }
+                      } else {
+                        setState(() {
+                          imgName = '';
+                        });
+                        return;
+                      }
+                    },
                     icon: const Icon(Icons.add_a_photo_sharp),
                     color: const Color.fromARGB(255, 116, 59, 107),
                     iconSize: 50,
@@ -317,8 +342,7 @@ class _AddMemoryState extends State<AddMemory> {
                       backgroundColor: Colors.grey.shade100),
                   onPressed: () async {
                     final result = await FilePicker.platform.pickFiles(
-                      type: FileType.custom,
-                      allowedExtensions: ['mp3', 'wav', 'ogg', 'aac'],
+                      type: FileType.audio,
                     );
 
                     if (result != null) {
@@ -360,9 +384,11 @@ class _AddMemoryState extends State<AddMemory> {
                         maxLines: 1,
                         softWrap: false,
                         style: TextStyle(
-                          fontWeight: FontWeight.w600,
+                          fontWeight: audName.isEmpty
+                              ? FontWeight.w600
+                              : FontWeight.normal,
                           height: 1,
-                          fontSize: 20,
+                          fontSize: audName.isEmpty ? 20 : 12,
                           color: Colors.grey,
                         ),
                       ),
@@ -379,60 +405,45 @@ class _AddMemoryState extends State<AddMemory> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.zero,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(25.0),
-                  ),
-                ),
+              CustomButton(
+                label: 'save',
                 onPressed: () async {
+                  if (data['description'] == null ||
+                      data['title'] == null ||
+                      data['title'] == '' ||
+                      data['description'] == '') {
+                    showSnackbar(context);
+                    return;
+                  }
+                  if (img == null ||
+                      imgName == '' ||
+                      aud == null ||
+                      audName == '') {
+                    showSnackbar(context,
+                        text: 'Please Include Audio and Image');
+                    return;
+                  }
                   final res = await uploadImageAndAudio(
                     imageFile: File(img!.path!),
                     imageName: imgName,
                     audioFile: File(aud!.path!),
                     audioName: audName,
                   );
+                  if (res['success'] != true) {
+                    showSnackbar(context, text: res['data']['message']);
+                    return;
+                  }
+                  data['image_id'] = res['data']['image'];
+                  data['audio_id'] = res['data']['audio'];
                   final res2 = await createGift(data);
-                  print("res $res");
-                  print("res2 $res2");
-                  if (res['success'] == true && res2['success'] == true) {
+                  if (res2['success'] == true) {
                     successSnackbar(context, text: res2['data']['message']);
+                    return;
                   } else {
                     showSnackbar(context, text: res2['data']['message']);
+                    return;
                   }
                 },
-                child: Ink(
-                  decoration: BoxDecoration(
-                    gradient: const LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: [
-                        Color.fromARGB(255, 116, 59, 107),
-                        Color.fromARGB(255, 100, 58, 97)
-                      ],
-                    ),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 15),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    constraints: const BoxConstraints(
-                      maxWidth: 250,
-                    ),
-                    child: const Center(
-                      child: Text(
-                        'Save',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 20,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
               ),
             ],
           ),
