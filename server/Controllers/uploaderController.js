@@ -24,28 +24,32 @@ export const uploadFile = asyncHandler(async (req, res) => {
   const result = await pool.query(insertQuery, values);
 
   const message = isImage ? "Memory" : "Audio";
-  res.json({ message: `${message} uploaded successfully`, data: [] });
+  res.json({
+    message: `${message} uploaded successfully`,
+    data: [result[0].insertId],
+  });
 });
-
 
 //@desc uploads memory audio
 //@route POST /api/creator/addGift
 //@access private
 export const addGift = asyncHandler(async (req, res) => {
   const { love_id, id } = req.user;
-  const { title, description } = req.body;
-
+  const { title, description, image_id, audio_id } = req.body;
 
   //use the id to find the id of images and audios or find other method
 
-  if (!title || !description) {
+  // the methodis spoon feeding check it if necessary
+
+  if (!title || !description || !audio_id || !image_id) {
     const err = new Error("Please Include Correct Fields");
     err.statusCode = 400;
     throw err;
   }
+
   const query =
-    "INSERT INTO gift (love_id, title, description) VALUES (?, ?, ?)";
-  const values = [love_id, title, description];
+    "INSERT INTO gift (love_id, title, description,image_id,audio_id) VALUES (?, ?, ?, ?, ?)";
+  const values = [love_id, title, description, image_id, audio_id];
 
   const result = await pool.query(query, values);
 

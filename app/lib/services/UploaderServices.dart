@@ -125,8 +125,8 @@ Future<Map<String, dynamic>> uploadImageAndAudio({
     return {
       "success": true,
       "data": {
-        "image": imageResponseData,
-        "audio": audioResponseData,
+        "image": imageResponseData['data'][0],
+        "audio": audioResponseData['data'][0],
       },
     };
   } catch (e) {
